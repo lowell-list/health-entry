@@ -1,7 +1,7 @@
 @import UIKit;
 @import HealthKit;
 
-@interface EntryViewController : UITableViewController
+@interface EntryViewController : UIViewController <UITableViewDelegate>
 
 @property (nonatomic) HKHealthStore *healthStore;
 

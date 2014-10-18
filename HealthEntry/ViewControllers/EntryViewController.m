@@ -2,6 +2,7 @@
 
 @interface EntryViewController()
 
+// an array of the selected types that will be used for data entry
 @property (nonatomic) NSMutableArray *selectedTypes;
 
 @end
