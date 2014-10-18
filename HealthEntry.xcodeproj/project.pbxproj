@@ -7,49 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00FE738219A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 00FE738019A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.h */; };
-		00FE738319A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FE738119A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.m */; };
-		3E359022192E88230010F9FF /* AAPLJournalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E359021192E88230010F9FF /* AAPLJournalViewController.h */; };
-		3E35E886192E68FF00C5BC4E /* AAPLFoodItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E35E884192E68FF00C5BC4E /* AAPLFoodItem.h */; };
-		3E35E887192E68FF00C5BC4E /* AAPLFoodItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E35E885192E68FF00C5BC4E /* AAPLFoodItem.m */; };
-		3EC2BF711964B1AB0097E8FD /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC2BF701964B1AB0097E8FD /* Storyboard.storyboard */; };
-		4E120CB31935421000FDB265 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E120CB51935421000FDB265 /* Localizable.strings */; };
-		4ED4B7FB19283674002C7E33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4B7FA19283674002C7E33 /* main.m */; };
-		4ED4B7FD19283674002C7E33 /* AAPLAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ED4B7FC19283674002C7E33 /* AAPLAppDelegate.h */; };
-		4ED4B7FF19283674002C7E33 /* AAPLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4B7FE19283674002C7E33 /* AAPLAppDelegate.m */; };
-		4ED4B80119283674002C7E33 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED4B80019283674002C7E33 /* Images.xcassets */; };
-		4ED4B81E19283799002C7E33 /* AAPLProfileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ED4B81C19283799002C7E33 /* AAPLProfileViewController.h */; };
-		4ED4B81F19283799002C7E33 /* AAPLProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4B81D19283799002C7E33 /* AAPLProfileViewController.m */; };
-		4ED6CABA1928708D004BAD02 /* AAPLJournalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6CAB81928708D004BAD02 /* AAPLJournalViewController.m */; };
-		4ED6CAC119287256004BAD02 /* AAPLFoodPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ED6CABF19287256004BAD02 /* AAPLFoodPickerViewController.h */; };
-		4ED6CAC219287256004BAD02 /* AAPLFoodPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6CAC019287256004BAD02 /* AAPLFoodPickerViewController.m */; };
-		4ED6CAC519287AE5004BAD02 /* AAPLEnergyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ED6CAC319287AE5004BAD02 /* AAPLEnergyViewController.h */; };
-		4ED6CAC619287AE5004BAD02 /* AAPLEnergyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6CAC419287AE5004BAD02 /* AAPLEnergyViewController.m */; };
+		C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD085419F32B38000F50BA /* AppDelegate.h */; };
+		C4BD086319F32B38000F50BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD085519F32B38000F50BA /* AppDelegate.m */; };
+		C4BD086419F32B38000F50BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4BD085619F32B38000F50BA /* Localizable.strings */; };
+		C4BD086519F32B38000F50BA /* HealthEntry.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C4BD085819F32B38000F50BA /* HealthEntry.entitlements */; };
+		C4BD086619F32B38000F50BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD085919F32B38000F50BA /* Images.xcassets */; };
+		C4BD086819F32B38000F50BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD085B19F32B38000F50BA /* main.m */; };
+		C4BD086919F32B38000F50BA /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BD085C19F32B38000F50BA /* Storyboard.storyboard */; };
+		C4BD086A19F32B38000F50BA /* EntryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD085E19F32B38000F50BA /* EntryViewController.h */; };
+		C4BD086B19F32B38000F50BA /* EntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD085F19F32B38000F50BA /* EntryViewController.m */; };
+		C4BD086C19F32B38000F50BA /* SelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD086019F32B38000F50BA /* SelectViewController.h */; };
+		C4BD086D19F32B38000F50BA /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD086119F32B38000F50BA /* SelectViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		00FE738019A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HKHealthStore+AAPLExtensions.h"; sourceTree = "<group>"; };
-		00FE738119A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HKHealthStore+AAPLExtensions.m"; sourceTree = "<group>"; };
-		3E359021192E88230010F9FF /* AAPLJournalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLJournalViewController.h; sourceTree = "<group>"; };
-		3E35E884192E68FF00C5BC4E /* AAPLFoodItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLFoodItem.h; sourceTree = "<group>"; };
-		3E35E885192E68FF00C5BC4E /* AAPLFoodItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLFoodItem.m; sourceTree = "<group>"; };
-		3E38FDAA192C534F00A50A71 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3E731F06195208A9002A1E80 /* HealthEntry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HealthEntry.entitlements; sourceTree = "<group>"; };
-		3EC2BF701964B1AB0097E8FD /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		4E120CB41935421000FDB265 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4ED4B7F519283674002C7E33 /* HealthEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4ED4B7F919283674002C7E33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4ED4B7FA19283674002C7E33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4ED4B7FC19283674002C7E33 /* AAPLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAPLAppDelegate.h; sourceTree = "<group>"; };
-		4ED4B7FE19283674002C7E33 /* AAPLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAPLAppDelegate.m; sourceTree = "<group>"; };
-		4ED4B80019283674002C7E33 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4ED4B81C19283799002C7E33 /* AAPLProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLProfileViewController.h; sourceTree = "<group>"; };
-		4ED4B81D19283799002C7E33 /* AAPLProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLProfileViewController.m; sourceTree = "<group>"; };
-		4ED6CAB81928708D004BAD02 /* AAPLJournalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLJournalViewController.m; sourceTree = "<group>"; };
-		4ED6CABF19287256004BAD02 /* AAPLFoodPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLFoodPickerViewController.h; sourceTree = "<group>"; };
-		4ED6CAC019287256004BAD02 /* AAPLFoodPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLFoodPickerViewController.m; sourceTree = "<group>"; };
-		4ED6CAC319287AE5004BAD02 /* AAPLEnergyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLEnergyViewController.h; sourceTree = "<group>"; };
-		4ED6CAC419287AE5004BAD02 /* AAPLEnergyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLEnergyViewController.m; sourceTree = "<group>"; };
+		C4BD085419F32B38000F50BA /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C4BD085519F32B38000F50BA /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C4BD085719F32B38000F50BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C4BD085819F32B38000F50BA /* HealthEntry.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HealthEntry.entitlements; sourceTree = "<group>"; };
+		C4BD085919F32B38000F50BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C4BD085A19F32B38000F50BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4BD085B19F32B38000F50BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C4BD085C19F32B38000F50BA /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		C4BD085E19F32B38000F50BA /* EntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryViewController.h; sourceTree = "<group>"; };
+		C4BD085F19F32B38000F50BA /* EntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryViewController.m; sourceTree = "<group>"; };
+		C4BD086019F32B38000F50BA /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
+		C4BD086119F32B38000F50BA /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +50,7 @@
 		4ED4B7EB19283674002C7E33 = {
 			isa = PBXGroup;
 			children = (
-				3E38FDAA192C534F00A50A71 /* README.md */,
-				4ED4B7F719283674002C7E33 /* HealthEntry */,
+				C4BD085319F32B38000F50BA /* HealthEntry */,
 				4ED4B7F619283674002C7E33 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,63 +63,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4ED4B7F719283674002C7E33 /* HealthEntry */ = {
+		C4BD085319F32B38000F50BA /* HealthEntry */ = {
 			isa = PBXGroup;
 			children = (
-				3EC2BF701964B1AB0097E8FD /* Storyboard.storyboard */,
-				3E731F06195208A9002A1E80 /* HealthEntry.entitlements */,
-				4ED4B7FC19283674002C7E33 /* AAPLAppDelegate.h */,
-				4ED4B7FE19283674002C7E33 /* AAPLAppDelegate.m */,
-				00FE738019A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.h */,
-				00FE738119A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.m */,
-				4ED6CAD119287EE0004BAD02 /* Age, Height, and Weight */,
-				4ED6CAD219287EEC004BAD02 /* Journal */,
-				4ED6CAD319287EFF004BAD02 /* Energy */,
-				4ED4B80019283674002C7E33 /* Images.xcassets */,
-				4ED4B7F819283674002C7E33 /* Supporting Files */,
+				C4BD085419F32B38000F50BA /* AppDelegate.h */,
+				C4BD085519F32B38000F50BA /* AppDelegate.m */,
+				C4BD085619F32B38000F50BA /* Localizable.strings */,
+				C4BD085819F32B38000F50BA /* HealthEntry.entitlements */,
+				C4BD085919F32B38000F50BA /* Images.xcassets */,
+				C4BD085A19F32B38000F50BA /* Info.plist */,
+				C4BD085B19F32B38000F50BA /* main.m */,
+				C4BD085C19F32B38000F50BA /* Storyboard.storyboard */,
+				C4BD085D19F32B38000F50BA /* ViewControllers */,
 			);
 			path = HealthEntry;
 			sourceTree = "<group>";
 		};
-		4ED4B7F819283674002C7E33 /* Supporting Files */ = {
+		C4BD085D19F32B38000F50BA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				4ED4B7F919283674002C7E33 /* Info.plist */,
-				4ED4B7FA19283674002C7E33 /* main.m */,
-				4E120CB51935421000FDB265 /* Localizable.strings */,
+				C4BD085E19F32B38000F50BA /* EntryViewController.h */,
+				C4BD085F19F32B38000F50BA /* EntryViewController.m */,
+				C4BD086019F32B38000F50BA /* SelectViewController.h */,
+				C4BD086119F32B38000F50BA /* SelectViewController.m */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4ED6CAD119287EE0004BAD02 /* Age, Height, and Weight */ = {
-			isa = PBXGroup;
-			children = (
-				4ED4B81C19283799002C7E33 /* AAPLProfileViewController.h */,
-				4ED4B81D19283799002C7E33 /* AAPLProfileViewController.m */,
-			);
-			name = "Age, Height, and Weight";
-			sourceTree = "<group>";
-		};
-		4ED6CAD219287EEC004BAD02 /* Journal */ = {
-			isa = PBXGroup;
-			children = (
-				3E359021192E88230010F9FF /* AAPLJournalViewController.h */,
-				4ED6CAB81928708D004BAD02 /* AAPLJournalViewController.m */,
-				4ED6CABF19287256004BAD02 /* AAPLFoodPickerViewController.h */,
-				4ED6CAC019287256004BAD02 /* AAPLFoodPickerViewController.m */,
-				3E35E884192E68FF00C5BC4E /* AAPLFoodItem.h */,
-				3E35E885192E68FF00C5BC4E /* AAPLFoodItem.m */,
-			);
-			name = Journal;
-			sourceTree = "<group>";
-		};
-		4ED6CAD319287EFF004BAD02 /* Energy */ = {
-			isa = PBXGroup;
-			children = (
-				4ED6CAC319287AE5004BAD02 /* AAPLEnergyViewController.h */,
-				4ED6CAC419287AE5004BAD02 /* AAPLEnergyViewController.m */,
-			);
-			name = Energy;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,13 +97,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E35E886192E68FF00C5BC4E /* AAPLFoodItem.h in Headers */,
-				4ED4B7FD19283674002C7E33 /* AAPLAppDelegate.h in Headers */,
-				00FE738219A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.h in Headers */,
-				4ED4B81E19283799002C7E33 /* AAPLProfileViewController.h in Headers */,
-				4ED6CAC119287256004BAD02 /* AAPLFoodPickerViewController.h in Headers */,
-				3E359022192E88230010F9FF /* AAPLJournalViewController.h in Headers */,
-				4ED6CAC519287AE5004BAD02 /* AAPLEnergyViewController.h in Headers */,
+				C4BD086A19F32B38000F50BA /* EntryViewController.h in Headers */,
+				C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */,
+				C4BD086C19F32B38000F50BA /* SelectViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,9 +165,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E120CB31935421000FDB265 /* Localizable.strings in Resources */,
-				4ED4B80119283674002C7E33 /* Images.xcassets in Resources */,
-				3EC2BF711964B1AB0097E8FD /* Storyboard.storyboard in Resources */,
+				C4BD086619F32B38000F50BA /* Images.xcassets in Resources */,
+				C4BD086519F32B38000F50BA /* HealthEntry.entitlements in Resources */,
+				C4BD086419F32B38000F50BA /* Localizable.strings in Resources */,
+				C4BD086919F32B38000F50BA /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,24 +179,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E35E887192E68FF00C5BC4E /* AAPLFoodItem.m in Sources */,
-				4ED4B7FF19283674002C7E33 /* AAPLAppDelegate.m in Sources */,
-				4ED6CAC219287256004BAD02 /* AAPLFoodPickerViewController.m in Sources */,
-				4ED4B81F19283799002C7E33 /* AAPLProfileViewController.m in Sources */,
-				00FE738319A5A4F200EEEC5D /* HKHealthStore+AAPLExtensions.m in Sources */,
-				4ED4B7FB19283674002C7E33 /* main.m in Sources */,
-				4ED6CAC619287AE5004BAD02 /* AAPLEnergyViewController.m in Sources */,
-				4ED6CABA1928708D004BAD02 /* AAPLJournalViewController.m in Sources */,
+				C4BD086D19F32B38000F50BA /* SelectViewController.m in Sources */,
+				C4BD086819F32B38000F50BA /* main.m in Sources */,
+				C4BD086B19F32B38000F50BA /* EntryViewController.m in Sources */,
+				C4BD086319F32B38000F50BA /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4E120CB51935421000FDB265 /* Localizable.strings */ = {
+		C4BD085619F32B38000F50BA /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4E120CB41935421000FDB265 /* en */,
+				C4BD085719F32B38000F50BA /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

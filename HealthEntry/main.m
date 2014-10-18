@@ -1,18 +1,9 @@
-/*
-    Copyright (C) 2014 Apple Inc. All Rights Reserved.
-    See LICENSE.txt for this sample’s licensing information
-    
-    Abstract:
-    
-                The entry point to the main application.
-            
-*/
-
 @import UIKit;
-#import "AAPLAppDelegate.h"
+#import "AppDelegate.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AAPLAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
