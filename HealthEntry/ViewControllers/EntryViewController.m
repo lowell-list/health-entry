@@ -8,7 +8,7 @@
 @end
 
 
-NSString *const AAPLJournalViewControllerTableViewCellReuseIdentifier = @"cell";
+NSString *const EntryViewControllerTableViewCellReuseIdentifier = @"singleEntryCell";
 
 
 @implementation EntryViewController
@@ -16,7 +16,7 @@ NSString *const AAPLJournalViewControllerTableViewCellReuseIdentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.selectedTypes = [NSMutableArray array];
+    self.selectedTypes = [[NSMutableArray alloc] initWithObjects:@"Weight", @"Height", @"Blood Pressure", nil];
 }
 
 - (void)dealloc {
@@ -24,17 +24,35 @@ NSString *const AAPLJournalViewControllerTableViewCellReuseIdentifier = @"cell";
 
 #pragma mark - UITableViewDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3; //self.selectedTypes.count;
+    return self.selectedTypes.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView dequeueReusableCellWithIdentifier:AAPLJournalViewControllerTableViewCellReuseIdentifier forIndexPath:indexPath];
+    return [tableView dequeueReusableCellWithIdentifier:EntryViewControllerTableViewCellReuseIdentifier forIndexPath:indexPath];
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.textLabel.text = @"text";
-    cell.detailTextLabel.text = @"detail text";
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // set label text
+    UILabel *lbl = (UILabel *)[cell viewWithTag:100];
+    [lbl setText:[self.selectedTypes objectAtIndex:[indexPath row]]];
+
+    // set textfield text
+    UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
+    [txtfld setText:[self.selectedTypes objectAtIndex:[indexPath row]]];
 }
 
 @end
