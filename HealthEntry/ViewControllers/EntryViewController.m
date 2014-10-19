@@ -1,4 +1,5 @@
 #import "EntryViewController.h"
+#import "HealthEntryItem.h"
 
 @interface EntryViewController()
 
@@ -8,15 +9,17 @@
 @end
 
 
-NSString *const EntryViewControllerTableViewCellReuseIdentifier = @"singleEntryCell";
-
-
 @implementation EntryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.selectedTypes = [[NSMutableArray alloc] initWithObjects:@"Weight", @"Height", @"Blood Pressure", nil];
+    // TODO: make this array global
+    _selectedTypes = [[NSMutableArray alloc] initWithObjects:
+        [[HealthEntryItem alloc] initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned] label:NSLocalizedString(@"Energy Burned", nil)],
+        [[HealthEntryItem alloc] initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight] label:NSLocalizedString(@"Height", nil)],
+        [[HealthEntryItem alloc] initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass] label:NSLocalizedString(@"Weight", nil)],
+        nil];
 }
 
 - (void)dealloc {
@@ -29,7 +32,7 @@ NSString *const EntryViewControllerTableViewCellReuseIdentifier = @"singleEntryC
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.selectedTypes.count;
+    return _selectedTypes.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -41,18 +44,21 @@ NSString *const EntryViewControllerTableViewCellReuseIdentifier = @"singleEntryC
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView dequeueReusableCellWithIdentifier:EntryViewControllerTableViewCellReuseIdentifier forIndexPath:indexPath];
+    HealthEntryItem *itm = [_selectedTypes objectAtIndex:[indexPath row]];
+    return [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    HealthEntryItem *itm = [_selectedTypes objectAtIndex:[indexPath row]];
+    
     // set label text
     UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-    [lbl setText:[self.selectedTypes objectAtIndex:[indexPath row]]];
+    [lbl setText:itm.label];
 
     // set textfield text
     UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
-    [txtfld setText:[self.selectedTypes objectAtIndex:[indexPath row]]];
+    [txtfld setText:@"blank"];
 }
 
 @end

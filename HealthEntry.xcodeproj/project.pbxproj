@@ -18,6 +18,8 @@
 		C4BD086B19F32B38000F50BA /* EntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD085F19F32B38000F50BA /* EntryViewController.m */; };
 		C4BD086C19F32B38000F50BA /* SelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD086019F32B38000F50BA /* SelectViewController.h */; };
 		C4BD086D19F32B38000F50BA /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD086119F32B38000F50BA /* SelectViewController.m */; };
+		C4BD087019F37FB5000F50BA /* HealthEntryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD086E19F37FB5000F50BA /* HealthEntryItem.h */; };
+		C4BD087119F37FB5000F50BA /* HealthEntryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD086F19F37FB5000F50BA /* HealthEntryItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		C4BD085F19F32B38000F50BA /* EntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryViewController.m; sourceTree = "<group>"; };
 		C4BD086019F32B38000F50BA /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		C4BD086119F32B38000F50BA /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
+		C4BD086E19F37FB5000F50BA /* HealthEntryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthEntryItem.h; sourceTree = "<group>"; };
+		C4BD086F19F37FB5000F50BA /* HealthEntryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthEntryItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				C4BD085B19F32B38000F50BA /* main.m */,
 				C4BD085C19F32B38000F50BA /* Storyboard.storyboard */,
 				C4BD085D19F32B38000F50BA /* ViewControllers */,
+				C4BD086E19F37FB5000F50BA /* HealthEntryItem.h */,
+				C4BD086F19F37FB5000F50BA /* HealthEntryItem.m */,
 			);
 			path = HealthEntry;
 			sourceTree = "<group>";
@@ -99,6 +105,7 @@
 			files = (
 				C4BD086A19F32B38000F50BA /* EntryViewController.h in Headers */,
 				C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */,
+				C4BD087019F37FB5000F50BA /* HealthEntryItem.h in Headers */,
 				C4BD086C19F32B38000F50BA /* SelectViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +189,7 @@
 				C4BD086D19F32B38000F50BA /* SelectViewController.m in Sources */,
 				C4BD086819F32B38000F50BA /* main.m in Sources */,
 				C4BD086B19F32B38000F50BA /* EntryViewController.m in Sources */,
+				C4BD087119F37FB5000F50BA /* HealthEntryItem.m in Sources */,
 				C4BD086319F32B38000F50BA /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
