@@ -1,4 +1,13 @@
+//
+//  SelectViewController.m
+//  HealthEntry
+//
+//  Created by Lowell List on 11/21/14.
+//  Copyright (c) 2014 Lowell List Software LLC. All rights reserved.
+//
+
 #import "SelectViewController.h"
+#import "HealthEntryItemManager.h"
 
 // A mapping of logical sections of the table view to actual indexes.
 typedef NS_ENUM(NSInteger, SelectViewControllerTableViewIndex) {
@@ -50,6 +59,8 @@ typedef NS_ENUM(NSInteger, SelectViewControllerTableViewIndex) {
             });
         }];
     }
+  
+  /**/NSLog(@"%@",[HealthEntryItemManager instance].supportedItems);
 }
 
 #pragma mark - HealthKit Permissions

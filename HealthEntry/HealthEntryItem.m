@@ -3,7 +3,7 @@
 //  HealthEntry
 //
 //  Created by Lowell List on 10/18/14.
-//  Copyright (c) 2014 Apple. All rights reserved.
+//  Copyright (c) 2014 Lowell List Software LLC. All rights reserved.
 //
 
 #import "HealthEntryItem.h"

@@ -1,25 +1,28 @@
+//
+//  EntryViewController.m
+//  HealthEntry
+//
+//  Created by Lowell List on 11/21/14.
+//  Copyright (c) 2014 Lowell List Software LLC. All rights reserved.
+//
+
 #import "EntryViewController.h"
-#import "HealthEntryItem.h"
+#import "HealthEntryItemManager.h"
 
 @interface EntryViewController()
 
-// an array of the selected types that will be used for data entry
-@property (nonatomic) NSMutableArray *selectedTypes;
+// an array of the selected items that will be used for data entry
+@property (nonatomic) NSArray *selectedItems;
 
 @end
-
 
 @implementation EntryViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+  [super viewDidLoad];
 
-    // TODO: make this array global
-    _selectedTypes = [[NSMutableArray alloc] initWithObjects:
-        [[HealthEntryItem alloc] initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned] label:NSLocalizedString(@"Energy Burned", nil)],
-        [[HealthEntryItem alloc] initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight] label:NSLocalizedString(@"Height", nil)],
-        [[HealthEntryItem alloc] initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass] label:NSLocalizedString(@"Weight", nil)],
-        nil];
+  _selectedItems = [HealthEntryItemManager instance].selectedItems;
+  /**/NSLog(@"%@",_selectedItems);
 }
 
 - (void)dealloc {
@@ -32,7 +35,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _selectedTypes.count;
+    return _selectedItems.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -44,13 +47,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HealthEntryItem *itm = [_selectedTypes objectAtIndex:[indexPath row]];
+    HealthEntryItem *itm = [_selectedItems objectAtIndex:[indexPath row]];
     return [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HealthEntryItem *itm = [_selectedTypes objectAtIndex:[indexPath row]];
+    HealthEntryItem *itm = [_selectedItems objectAtIndex:[indexPath row]];
     
     // set label text
     UILabel *lbl = (UILabel *)[cell viewWithTag:100];
