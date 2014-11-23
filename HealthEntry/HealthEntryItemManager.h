@@ -11,20 +11,19 @@
 
 @interface HealthEntryItemManager : NSObject
 
-/**
- * An NSArray of all HealthEntryItems supported by this app.
- */
+/**************************************************************************/
+#pragma mark INSTANCE PROPERTIES
+/**************************************************************************/
+
+/// An NSArray of all HealthEntryItems supported by this app.
 @property (readonly) NSArray * supportedItems;
 
-/**
- * An NSArray of all HealthEntryItems selected for data entry.
- */
+/// An NSArray of all HealthEntryItems selected for data entry.
 @property (readonly) NSArray * selectedItems;
 
-/**
- * Returns the singleton instance.
- */
-+ (HealthEntryItemManager *)instance;
+/**************************************************************************/
+#pragma mark INSTANCE METHODS
+/**************************************************************************/
 
 /**
  * Selects the given item for data entry.
@@ -35,5 +34,14 @@
  * Unselects the given item for data entry.
  */
 - (void)unselectItem:(HealthEntryItem *)item;
+
+/**************************************************************************/
+#pragma mark CLASS METHODS
+/**************************************************************************/
+
+/**
+ * Returns the singleton instance.
+ */
++ (HealthEntryItemManager *)instance;
 
 @end

@@ -8,16 +8,36 @@
 
 #import "HealthEntryItem.h"
 
+/**************************************************************************/
+#pragma mark INSTANCE PROPERTIES
+/**************************************************************************/
+
+/**************************************************************************/
+#pragma mark INSTANCE INIT / DEALLOC
+/**************************************************************************/
+
 @implementation HealthEntryItem
 
 - (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label {
-    self = [super init];
-    if(self) {
-        _dataType = dataType;
-        _entryCellReuseId = @"singleEntryCell";
-        _label = label;
-    }
-    return self;
+  self = [super init];
+  if(self) {
+    _dataType = dataType;
+    _entryCellReuseId = @"singleEntryCell";
+    _label = label;
+  }
+  return self;
 }
+
+- (void)dealloc
+{
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS
+/**************************************************************************/
+
+/**************************************************************************/
+#pragma mark CLASS METHODS
+/**************************************************************************/
 
 @end

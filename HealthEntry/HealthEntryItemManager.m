@@ -9,35 +9,22 @@
 #import "HealthEntryItemManager.h"
 
 /**************************************************************************/
-#pragma mark PRIVATE INSTANCE PROPERTIES
+#pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
 
 @interface HealthEntryItemManager()
 {
-@private
-  // define here
 }
 @end
 
 /**************************************************************************/
-#pragma mark SINGLETON, INSTANCE CONSTRUCTOR
+#pragma mark INSTANCE INIT / DEALLOC
 /**************************************************************************/
 
 @implementation HealthEntryItemManager
 
-+ (HealthEntryItemManager *)instance {
-  static HealthEntryItemManager *singletonInstance = nil;
-  
-  // this code will run only once
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    singletonInstance = [[self alloc] init];
-  });
-  
-  return singletonInstance;
-}
-
-- (id)init {
+- (id)init
+{
   if(self=[super init]) {
     // init
     [self initSupportedItems];
@@ -46,16 +33,17 @@
   return self;
 }
 
-- (void)dealloc {
-  // should never be called, but just here for clarity
+- (void)dealloc
+{
+  // should never be called (Singleton), but just here for clarity
 }
 
 /**************************************************************************/
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
-- (void)initSupportedItems {
-
+- (void)initSupportedItems
+{
   _supportedItems =
     [[NSArray alloc] initWithObjects:
      
@@ -88,5 +76,18 @@
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/
+
++ (HealthEntryItemManager *)instance
+{
+  static HealthEntryItemManager *singletonInstance = nil;
+  
+  // this code will run only once
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    singletonInstance = [[self alloc] init];
+  });
+  
+  return singletonInstance;
+}
 
 @end
