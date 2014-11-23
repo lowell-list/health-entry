@@ -9,59 +9,85 @@
 #import "EntryViewController.h"
 #import "HealthEntryItemManager.h"
 
+/**************************************************************************/
+#pragma mark INSTANCE PROPERTIES
+/**************************************************************************/
+
 @interface EntryViewController()
 
-// an array of the selected items that will be used for data entry
-@property (nonatomic) NSArray *selectedItems;
+/// An array of all selected items.
+@property (nonatomic) NSArray * selectedItems;
 
 @end
 
+/**************************************************************************/
+#pragma mark INSTANCE INIT / DEALLOC
+/**************************************************************************/
+
 @implementation EntryViewController
 
-- (void)viewDidLoad {
+- (void)dealloc
+{
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - ViewController
+/**************************************************************************/
+
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-
+  
   _selectedItems = [HealthEntryItemManager instance].selectedItems;
-  /**/NSLog(@"%@",_selectedItems);
+  /**/NSLog(@"Selected Items: %@",_selectedItems);
 }
 
-- (void)dealloc {
-}
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UITableViewDelegate
+/**************************************************************************/
 
-#pragma mark - UITableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _selectedItems.count;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 44;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HealthEntryItem *itm = [_selectedItems objectAtIndex:[indexPath row]];
-    return [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
+  return 44;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HealthEntryItem *itm = [_selectedItems objectAtIndex:[indexPath row]];
-    
-    // set label text
-    UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-    [lbl setText:itm.label];
-
-    // set textfield text
-    UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
-    [txtfld setText:@"blank"];
+  // get item associated with current row
+  HealthEntryItem *itm = [_selectedItems objectAtIndex:[indexPath row]];
+  
+  // set label text
+  UILabel *lbl = (UILabel *)[cell viewWithTag:100];
+  [lbl setText:itm.label];
+  
+  // set textfield text
+  UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
+  [txtfld setText:@"blank"];
 }
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UITableViewDataSource
+/**************************************************************************/
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return _selectedItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HealthEntryItem *itm = [_selectedItems objectAtIndex:[indexPath row]];
+    return [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
+}
+
+/**************************************************************************/
+#pragma mark CLASS METHODS
+/**************************************************************************/
 
 @end

@@ -11,6 +11,18 @@
 
 @interface EntryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic) HKHealthStore *healthStore;
+/**************************************************************************/
+#pragma mark INSTANCE PROPERTIES
+/**************************************************************************/
+
+@property (nonatomic) HKHealthStore * healthStore;
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS
+/**************************************************************************/
+
+/**************************************************************************/
+#pragma mark CLASS METHODS
+/**************************************************************************/
 
 @end
