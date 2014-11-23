@@ -35,6 +35,12 @@
  */
 - (void)unselectItem:(HealthEntryItem *)item;
 
+/**
+ * Checks if the given item is selected.
+ * @return YES if the item is selected; NO otherwise
+ */
+- (BOOL)isItemSelected:(HealthEntryItem *)item;
+
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/

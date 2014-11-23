@@ -13,8 +13,7 @@
 /**************************************************************************/
 
 @interface HealthEntryItemManager()
-{
-}
+
 @end
 
 /**************************************************************************/
@@ -28,7 +27,7 @@
   if(self=[super init]) {
     // init
     [self initSupportedItems];
-    /**/_selectedItems = _supportedItems; // TODO: read from storage
+    [self initSelectedItems];
   }
   return self;
 }
@@ -42,6 +41,9 @@
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
+/**
+ * Initializes all supported items.  Should be called only once, at Singleton init.
+ */
 - (void)initSupportedItems
 {
   _supportedItems =
@@ -63,14 +65,43 @@
   NSLog(@"initialized supported items");
 }
 
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - SELECTED ITEMS
+/**************************************************************************/
+
+/**
+ * Loads all previously selected items.  Should be called only once, at Singleton init.
+ */
+- (void)initSelectedItems
+{
+  // TODO: read from storage instead
+  /**/_selectedItems = _supportedItems;
+}
+
 - (void)selectItem:(HealthEntryItem *)item
 {
   NSLog(@"item selected");
+  // TODO: update _selectedItems and save the array to storage
 }
 
 - (void)unselectItem:(HealthEntryItem *)item
 {
   NSLog(@"item unselected");
+}
+
+- (BOOL)isItemSelected:(HealthEntryItem *)item
+{
+  return NO;
+}
+
+- (void)loadSelectedItems
+{
+  // TODO: load all selected items from storage
+}
+
+- (void)saveSelectedItems
+{
+  // TODO: save all selected items to storage
 }
 
 /**************************************************************************/
