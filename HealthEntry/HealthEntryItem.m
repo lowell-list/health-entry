@@ -26,7 +26,7 @@
   self = [super init];
   if(self) {
     _dataType = dataType;
-    _entryCellReuseId = @"singleEntryCell";
+    _entryCellReuseId = @"entrySingleValueCell"; // TODO: this could be customized per item
     _label = label;
   }
   return self;
@@ -40,6 +40,10 @@
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"Label: %@; Data Type: %@; Cell ID: %@", _label, _dataType, _entryCellReuseId];
+}
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/

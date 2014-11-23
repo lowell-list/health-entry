@@ -75,18 +75,42 @@
 - (void)initSelectedItems
 {
   // TODO: read from storage instead
-  /**/_selectedItems = _supportedItems;
+  /**/_selectedItems = [[NSMutableArray alloc] init];
+}
+
+- (void)sortSelectedItems
+{
+  NSArray * tmparr = [_selectedItems sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+    NSString *first = ((HealthEntryItem *)a).label;
+    NSString *second = ((HealthEntryItem *)b).label;
+    return [first compare:second];
+  }];
+  _selectedItems = [NSMutableArray arrayWithArray:tmparr];
 }
 
 - (void)selectItem:(HealthEntryItem *)item
 {
-  NSLog(@"item selected");
-  // TODO: update _selectedItems and save the array to storage
+  /**/NSLog(@"item %@ selected",item.label);
+
+  // update selected items
+  NSMutableArray * selitmarr = (NSMutableArray *)_selectedItems;
+  [selitmarr removeObject:item]; // remove first to ensure no duplicates
+  [selitmarr addObject:item];
+
+  // save selected items
+  [self saveSelectedItems];
 }
 
 - (void)unselectItem:(HealthEntryItem *)item
 {
-  NSLog(@"item unselected");
+  /**/NSLog(@"item %@ unselected",item.label);
+
+  // update selected items
+  NSMutableArray * selitmarr = (NSMutableArray *)_selectedItems;
+  [selitmarr removeObject:item];
+  
+  // save selected items
+  [self saveSelectedItems];
 }
 
 - (BOOL)isItemSelected:(HealthEntryItem *)item

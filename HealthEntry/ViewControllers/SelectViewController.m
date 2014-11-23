@@ -9,178 +9,99 @@
 #import "SelectViewController.h"
 #import "HealthEntryItemManager.h"
 
-// A mapping of logical sections of the table view to actual indexes.
-typedef NS_ENUM(NSInteger, SelectViewControllerTableViewIndex) {
-    SelectViewControllerTableViewIndexAge = 0,
-    SelectViewControllerTableViewIndexHeight,
-    SelectViewControllerTableViewIndexWeight
-};
+/**************************************************************************/
+#pragma mark INSTANCE PROPERTIES
+/**************************************************************************/
 
+@interface SelectViewController()
 
-@interface SelectViewController ()
-
-// Note that the user's age is not editable.
-@property (nonatomic, weak) IBOutlet UILabel *ageUnitLabel;
-@property (nonatomic, weak) IBOutlet UILabel *ageValueLabel;
-
-@property (nonatomic, weak) IBOutlet UILabel *heightValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *heightUnitLabel;
-
-@property (nonatomic, weak) IBOutlet UILabel *weightValueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *weightUnitLabel;
+/// An array of all supported items.
+@property (nonatomic) NSArray * supportedItems;
 
 @end
 
+/**************************************************************************/
+#pragma mark INSTANCE INIT / DEALLOC
+/**************************************************************************/
 
 @implementation SelectViewController
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    // Set up an HKHealthStore, asking the user for read/write permissions. The profile view controller is the
-    // first view controller that's shown to the user, so we'll ask for all of the desired HealthKit permissions now.
-    // In your own app, you should consider requesting permissions the first time a user wants to interact with
-    // HealthKit data.
-    if ([HKHealthStore isHealthDataAvailable]) {
-        NSSet *writeDataTypes = [self dataTypesToWrite];
-        
-        [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:nil completion:^(BOOL success, NSError *error) {
-            if (!success) {
-                NSLog(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", error);
-                
-                return;
-            }
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Update the user interface based on the current user's health information.
-                //[self updateUsersAgeLabel];
-                //[self updateUsersHeightLabel];
-                //[self updateUsersWeightLabel];
-            });
-        }];
-    }
-  
-  /**/NSLog(@"%@",[HealthEntryItemManager instance].supportedItems);
-}
-
-#pragma mark - HealthKit Permissions
-
-// Returns the types of data that Fit wishes to write to HealthKit.
-- (NSSet *)dataTypesToWrite {
-    HKQuantityType *dietaryCalorieEnergyType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryEnergyConsumed];
-    HKQuantityType *activeEnergyBurnType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
-    HKQuantityType *heightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-    HKQuantityType *weightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-    
-    return [NSSet setWithObjects:dietaryCalorieEnergyType, activeEnergyBurnType, heightType, weightType, nil];
-}
-
-#pragma mark - Writing HealthKit Data
-
-- (void)saveHeightIntoHealthStore:(double)height
+- (void)dealloc
 {
-    // Save the user's height into HealthKit.
-    HKUnit *inchUnit = [HKUnit inchUnit];
-    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:inchUnit doubleValue:height];
-
-    HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-    NSDate *now = [NSDate date];
-    
-    HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:now endDate:now];
-    
-    [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
-        if (!success) {
-            NSLog(@"An error occured saving the height sample %@. In your app, try to handle this gracefully. The error was: %@.", heightSample, error);
-            abort();
-        }
-
-        NSLog(@"success height");
-    }];
 }
 
-- (void)saveWeightIntoHealthStore:(double)weight
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - ViewController
+/**************************************************************************/
+
+- (void)viewDidLoad
 {
-    // Save the user's weight into HealthKit.
-    HKUnit *poundUnit = [HKUnit poundUnit];
-    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:poundUnit doubleValue:weight];
+  [super viewDidLoad];
 
-    HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-    NSDate *now = [NSDate date];
-    
-    HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:now endDate:now];
-    
-    [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
-        if (!success) {
-            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
-            abort();
-        }
-
-        NSLog(@"success weight");
-    }];
+  _supportedItems = [HealthEntryItemManager instance].supportedItems;
+  /**/NSLog(@"Supported Items: %@",_supportedItems);
 }
 
-#pragma mark - UITableViewDelegate
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UITableViewDelegate
+/**************************************************************************/
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SelectViewControllerTableViewIndex index = (SelectViewControllerTableViewIndex)indexPath.row;
-    
-    // We won't allow people to change their date of birth, so ignore selection of the age cell.
-    if (index == SelectViewControllerTableViewIndexAge) {
-        return;
-    }
-    
-    // Set up variables based on what row the user has selected.
-    NSString *title;
-    void (^valueChangedHandler)(double value);
-    
-    if (index == SelectViewControllerTableViewIndexHeight) {
-        title = NSLocalizedString(@"Your Height", nil);
-
-        valueChangedHandler = ^(double value) {
-            [self saveHeightIntoHealthStore:value];
-        };
-    }
-    else if (index == SelectViewControllerTableViewIndexWeight) {
-        title = NSLocalizedString(@"Your Weight", nil);
-        
-        valueChangedHandler = ^(double value) {
-            [self saveWeightIntoHealthStore:value];
-        };
-    }
-    
-    // Create an alert controller to present.
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    // Add the text field to let the user enter a numeric value.
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        // Only allow the user to enter a valid number.
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-    }];
-    
-    // Create the "OK" button.
-    NSString *okTitle = NSLocalizedString(@"OK", nil);
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UITextField *textField = alertController.textFields.firstObject;
-        
-        double value = textField.text.doubleValue;
-        
-        valueChangedHandler(value);
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }];
-
-    [alertController addAction:okAction];
-    
-    // Create the "Cancel" button.
-    NSString *cancelTitle = NSLocalizedString(@"Cancel", nil);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }];
-
-    [alertController addAction:cancelAction];
-    
-    // Present the alert controller.
-    [self presentViewController:alertController animated:YES completion:nil];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 44;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 44;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // lookup corresponding item
+  HealthEntryItem *itm = [_supportedItems objectAtIndex:[indexPath row]];
+
+  // set cell label
+  [cell textLabel].text = itm.label;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // lookup corresponding item
+  HealthEntryItem *itm = [_supportedItems objectAtIndex:[indexPath row]];
+
+  // UI deselect
+  [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+  // toggle checkmark; select/deselect item
+  UITableViewCell *cll = [tableView cellForRowAtIndexPath:indexPath];
+  if(cll.accessoryType == UITableViewCellAccessoryCheckmark) {
+    cll.accessoryType = UITableViewCellAccessoryNone;
+    [[HealthEntryItemManager instance] unselectItem:itm];
+  }
+  else {
+    cll.accessoryType = UITableViewCellAccessoryCheckmark;
+    [[HealthEntryItemManager instance] selectItem:itm];
+  }
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UITableViewDataSource
+/**************************************************************************/
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return _supportedItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return [tableView dequeueReusableCellWithIdentifier:@"selectSimpleCell" forIndexPath:indexPath];
+}
+
+/**************************************************************************/
+#pragma mark CLASS METHODS
+/**************************************************************************/
 
 @end

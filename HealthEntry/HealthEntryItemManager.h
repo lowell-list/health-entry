@@ -26,6 +26,11 @@
 /**************************************************************************/
 
 /**
+ * Sorts selected items alphabetically by label text.
+ */
+- (void)sortSelectedItems;
+
+/**
  * Selects the given item for data entry.
  */
 - (void)selectItem:(HealthEntryItem *)item;
