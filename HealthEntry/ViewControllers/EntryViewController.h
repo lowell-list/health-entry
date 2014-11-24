@@ -9,7 +9,7 @@
 @import UIKit;
 @import HealthKit;
 
-@interface EntryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface EntryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES

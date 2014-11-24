@@ -40,6 +40,9 @@
 {
   [super viewDidLoad];
 
+  // auto dismiss keyboard
+  [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
+  
 /*
   // Set up an HKHealthStore, asking the user for read/write permissions. The profile view controller is the
   // first view controller that's shown to the user, so we'll ask for all of the desired HealthKit permissions now.
@@ -73,6 +76,31 @@
   // reload the table view data every time this view appears
   [[HealthEntryItemManager instance] sortSelectedItems];
   [_tableView reloadData];
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UITapGestureRecognizer
+/**************************************************************************/
+
+/**
+ * Any tap gesture on the view will dismiss the keyboard (if visible)
+ */
+- (void)handleTapGesture:(UIGestureRecognizer *)gestureRecognizer
+{
+  [self.view endEditing:YES];
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UITextFieldDelegate
+/**************************************************************************/
+
+/**
+ * UITextField delegate: dismiss keyboard when Return is pressed
+ */
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [textField resignFirstResponder];
+  return YES;
 }
 
 /**************************************************************************/
@@ -116,8 +144,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]];
-    return [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
+  // get item associated with current row
+  HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]];
+  
+  // get cell to use for this item
+  UITableViewCell *cll = [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
+  
+  // assign delegate
+  UITextField *txtfld = (UITextField *)[cll viewWithTag:200];
+  txtfld.delegate = self;
+
+  // return cell
+  return cll;
 }
 
 /**************************************************************************/
