@@ -79,7 +79,7 @@
 }
 
 /**************************************************************************/
-#pragma mark INSTANCE METHODS - UITapGestureRecognizer
+#pragma mark INSTANCE METHODS - User Interaction
 /**************************************************************************/
 
 /**
@@ -88,6 +88,11 @@
 - (void)handleTapGesture:(UIGestureRecognizer *)gestureRecognizer
 {
   [self.view endEditing:YES];
+}
+
+- (IBAction)onRecordButton
+{
+  /**/NSLog(@"Record Button");
 }
 
 /**************************************************************************/

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="PsJ-uz-QhX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Select-->
@@ -44,7 +45,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XYf-d7-u47">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XYf-d7-u47">
                                 <rect key="frame" x="0.0" y="64" width="320" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="When" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7m-Zv-WQ7">
@@ -61,7 +62,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xau-75-XIL">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xau-75-XIL">
                                 <rect key="frame" x="0.0" y="110" width="320" height="358"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -91,14 +92,25 @@
                                     <outlet property="delegate" destination="Ngq-Ec-Ur0" id="8G5-mP-FEk"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEF-5H-g8V">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEF-5H-g8V">
                                 <rect key="frame" x="104" y="476" width="113" height="30"/>
                                 <state key="normal" title="Record">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onRecordButton" destination="Ngq-Ec-Ur0" eventType="touchUpInside" id="7jj-yK-Rfz"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PVY-0N-d4s" firstAttribute="top" secondItem="KEF-5H-g8V" secondAttribute="bottom" constant="13" id="5db-qd-6vK"/>
+                            <constraint firstItem="xau-75-XIL" firstAttribute="top" secondItem="XYf-d7-u47" secondAttribute="bottom" id="EeL-4g-vlq"/>
+                            <constraint firstItem="KEF-5H-g8V" firstAttribute="top" secondItem="xau-75-XIL" secondAttribute="bottom" constant="8" id="VAP-YR-Qfk"/>
+                            <constraint firstItem="XYf-d7-u47" firstAttribute="top" secondItem="kgo-z5-Pve" secondAttribute="bottom" id="e3K-8j-rAQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XYf-d7-u47" secondAttribute="trailing" constant="-16" id="i7A-he-zMr"/>
+                            <constraint firstItem="XYf-d7-u47" firstAttribute="leading" secondItem="iu9-ag-LAx" secondAttribute="leadingMargin" constant="-16" id="juQ-yP-mUO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Data Entry" id="rG8-dO-Pgr"/>
                     <connections>
