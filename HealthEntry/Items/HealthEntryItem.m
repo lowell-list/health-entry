@@ -28,6 +28,7 @@
     _dataType = dataType;
     _entryCellReuseId = @"entrySingleValueCell"; // TODO: this could be customized per item
     _label = label;
+    _userInput = @"";
   }
   return self;
 }
@@ -42,8 +43,15 @@
 
 - (NSString *)description
 {
-  return [NSString stringWithFormat:@"Label: %@; Data Type: %@; Cell ID: %@", _label, _dataType, _entryCellReuseId];
+  return [NSString stringWithFormat:@"label: %@; userInput: %@", _label, _userInput];
 }
+
+- (void)textFieldEditingDidEnd:(UITextField *)textField
+{
+  _userInput = textField.text;
+  /**/NSLog(@"set userInput text to [%@] for item [%@]",_userInput,_label);
+}
+
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/

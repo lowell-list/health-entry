@@ -9,8 +9,6 @@
 #import "EntryViewController.h"
 #import "HealthEntryItemManager.h"
 
-// TODO: get out of input mode after tapping on edit box!
-
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
@@ -93,6 +91,13 @@
 - (IBAction)onRecordButton
 {
   /**/NSLog(@"Record Button");
+  
+  // TODO: get data from each cell and associate it with its data item
+  // TODO: create NSArray of all items with data
+  
+  // TODO: request permissions for all items that have data (non blank)
+  
+  // TODO: if permissions successful; write to HealthKit!
 }
 
 /**************************************************************************/
@@ -124,7 +129,6 @@
 {
   // get item associated with current row
   HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]];
-  NSLog(@"will display cell: item is %@",itm);
   
   // set label text
   UILabel *lbl = (UILabel *)[cell viewWithTag:100];
@@ -132,7 +136,7 @@
   
   // set textfield text
   UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
-  [txtfld setText:@"blank"];
+  [txtfld setText:itm.userInput];
 }
 
 /**************************************************************************/
@@ -149,6 +153,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  /**/NSLog(@"getting cell for index %i...",[indexPath row]);
+  
   // get item associated with current row
   HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]];
   
@@ -158,6 +164,10 @@
   // assign delegate
   UITextField *txtfld = (UITextField *)[cll viewWithTag:200];
   txtfld.delegate = self;
+  
+  // add UIControlEventEditingDidEnd handler
+  [txtfld removeTarget:itm action:NULL forControlEvents:UIControlEventEditingDidEnd];
+  [txtfld addTarget:itm action:@selector(textFieldEditingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
 
   // return cell
   return cll;

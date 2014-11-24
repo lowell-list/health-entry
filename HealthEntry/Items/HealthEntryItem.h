@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @import HealthKit;
+@import UIKit;
 
 @interface HealthEntryItem : NSObject
 
@@ -21,11 +22,16 @@
 
 @property (readonly,copy) NSString * label;
 
+/// The string that the user entered for this item
+@property (readonly,copy) NSString * userInput;
+
 /**************************************************************************/
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
 - (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label;
+
+- (void)textFieldEditingDidEnd:(UITextField *)textField;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS
