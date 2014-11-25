@@ -18,6 +18,8 @@
 
 @property (readonly) HKSampleType * dataType;
 
+@property (readonly) NSInteger sortValue;
+
 @property (readonly,copy) NSString * entryCellReuseId;
 
 @property (readonly,copy) NSString * label;
@@ -29,12 +31,17 @@
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
-- (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label;
+- (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label sortValue:(NSInteger)sortValue;
 
 - (void)textFieldEditingDidEnd:(UITextField *)textField;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/
+
+/**
+ * @return A NSComparator block to compare two HealthEntryItem objects.
+ */
++ (NSComparator)comparator;
 
 @end

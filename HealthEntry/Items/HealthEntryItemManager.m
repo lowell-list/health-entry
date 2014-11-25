@@ -51,18 +51,20 @@
      
      [[HealthEntryItem alloc]
       initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
-      label:NSLocalizedString(@"Energy Burned", nil)],
+      label:NSLocalizedString(@"Energy Burned", nil)
+      sortValue:10],
      
      [[HealthEntryItem alloc]
       initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight]
-      label:NSLocalizedString(@"Height", nil)],
+      label:NSLocalizedString(@"Height", nil)
+      sortValue:20],
      
      [[HealthEntryItem alloc]
       initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
-      label:NSLocalizedString(@"Weight", nil)],
+      label:NSLocalizedString(@"Weight", nil)
+      sortValue:30],
      
      nil];
-  NSLog(@"initialized supported items");
 }
 
 /**************************************************************************/
@@ -76,26 +78,32 @@
 {
   // TODO: read from storage instead
   /**/_selectedItems = [[NSMutableArray alloc] init];
+  
+  // ensure selected items array always starts out properly sorted!
+  [self sortSelectedItems];
 }
 
 - (void)sortSelectedItems
 {
-  NSArray * tmparr = [_selectedItems sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-    NSString *first = ((HealthEntryItem *)a).label;
-    NSString *second = ((HealthEntryItem *)b).label;
-    return [first compare:second];
-  }];
+  NSArray *tmparr = [_selectedItems sortedArrayUsingComparator:[HealthEntryItem comparator]];
   _selectedItems = [NSMutableArray arrayWithArray:tmparr];
 }
 
 - (void)selectItem:(HealthEntryItem *)item
 {
-  /**/NSLog(@"item %@ selected",item.label);
-
-  // update selected items
-  NSMutableArray * selitmarr = (NSMutableArray *)_selectedItems;
-  [selitmarr removeObject:item]; // remove first to ensure no duplicates
-  [selitmarr addObject:item];
+  // get NSMutableArray * reference
+  NSMutableArray *selitmarr = (NSMutableArray *)_selectedItems;
+  
+  // remove all instances to ensure no duplicates
+  [selitmarr removeObject:item];
+  
+  // get insertion index to maintain a sorted array (use binary search)
+  NSUInteger srtidx = [selitmarr indexOfObject:item
+                                 inSortedRange:(NSRange){0, [selitmarr count]}
+                                       options:NSBinarySearchingInsertionIndex
+                               usingComparator:[HealthEntryItem comparator]];
+  // insert
+  [selitmarr insertObject:item atIndex:srtidx];
 
   // save selected items
   [self saveSelectedItems];
@@ -103,10 +111,8 @@
 
 - (void)unselectItem:(HealthEntryItem *)item
 {
-  /**/NSLog(@"item %@ unselected",item.label);
-
   // update selected items
-  NSMutableArray * selitmarr = (NSMutableArray *)_selectedItems;
+  NSMutableArray *selitmarr = (NSMutableArray *)_selectedItems;
   [selitmarr removeObject:item];
   
   // save selected items

@@ -22,12 +22,13 @@
 
 @implementation HealthEntryItem
 
-- (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label {
+- (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label sortValue:(NSInteger)sortValue {
   self = [super init];
   if(self) {
     _dataType = dataType;
     _entryCellReuseId = @"entrySingleValueCell"; // TODO: this could be customized per item
     _label = label;
+    _sortValue = sortValue;
     _userInput = @"";
   }
   return self;
@@ -55,5 +56,14 @@
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/
+
++ (NSComparator)comparator
+{
+  return ^(HealthEntryItem * itm1, HealthEntryItem * itm2) {
+    if(itm1.sortValue > itm2.sortValue) { return NSOrderedDescending; }
+    if(itm1.sortValue < itm2.sortValue) { return NSOrderedAscending; }
+    return NSOrderedSame;
+  };
+}
 
 @end

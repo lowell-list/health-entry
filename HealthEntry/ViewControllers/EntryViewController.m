@@ -38,7 +38,7 @@
 {
   [super viewDidLoad];
 
-  // auto dismiss keyboard
+  // tap gesture recognizer to auto dismiss keyboard by tapping somewhere else
   [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
   
 /*
@@ -71,8 +71,7 @@
 {
   [super viewDidAppear:animated];
   
-  // reload the table view data every time this view appears
-  [[HealthEntryItemManager instance] sortSelectedItems];
+  // reload table view data every time this view appears
   [_tableView reloadData];
 }
 
@@ -153,8 +152,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  /**/NSLog(@"getting cell for index %i...",[indexPath row]);
-  
   // get item associated with current row
   HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]];
   
