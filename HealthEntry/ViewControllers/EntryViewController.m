@@ -40,31 +40,6 @@
 
   // tap gesture recognizer to auto dismiss keyboard by tapping somewhere else
   [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
-  
-/*
-  // Set up an HKHealthStore, asking the user for read/write permissions. The profile view controller is the
-  // first view controller that's shown to the user, so we'll ask for all of the desired HealthKit permissions now.
-  // In your own app, you should consider requesting permissions the first time a user wants to interact with
-  // HealthKit data.
-  if ([HKHealthStore isHealthDataAvailable]) {
-    NSSet *writeDataTypes = [self dataTypesToWrite];
-    
-    [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:nil completion:^(BOOL success, NSError *error) {
-      if (!success) {
-        NSLog(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", error);
-        
-        return;
-      }
-      
-      dispatch_async(dispatch_get_main_queue(), ^{
-        // Update the user interface based on the current user's health information.
-        //[self updateUsersAgeLabel];
-        //[self updateUsersHeightLabel];
-        //[self updateUsersWeightLabel];
-      });
-    }];
-  }
-*/
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -93,7 +68,21 @@
   NSArray * vlditmarr = [[HealthEntryItemManager instance] getSelectedItemsWithValidInput];
   /**/NSLog(@"Valid item array: %@",vlditmarr);
   
-  // TODO: request permissions for all items that have data (non blank)
+  // get set of HKSampleType objects
+  NSSet * smptypset = [HealthEntryItemManager getDataTypesSetFromItems:vlditmarr];
+  /**/NSLog(@"set of types: %@",smptypset);
+  
+  // request permissions...
+  if([HKHealthStore isHealthDataAvailable])
+  {
+    [self.healthStore requestAuthorizationToShareTypes:smptypset readTypes:nil completion:^(BOOL success, NSError *error) {
+      if(!success) {
+        NSLog(@"You didn't allow this app to share data types. The error was: %@.", error);
+        return;
+      }
+      NSLog(@"Successfully received permissions!");
+    }];
+  }
   
   // TODO: if permissions successful; write to HealthKit!
 }

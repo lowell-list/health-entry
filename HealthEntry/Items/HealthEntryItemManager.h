@@ -51,8 +51,13 @@
 /**************************************************************************/
 
 /**
- * Returns the singleton instance.
+ * @return The singleton instance.
  */
 + (HealthEntryItemManager *)instance;
+
+/**
+ * Given a NSArray of HealthEntryItems, returns a NSSet of HKSampleType objects
+ */
++ (NSSet *)getDataTypesSetFromItems:(NSArray *)healthEntryItems;
 
 @end

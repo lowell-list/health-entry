@@ -141,7 +141,7 @@
 }
 
 /**************************************************************************/
-#pragma mark CLASS METHODS
+#pragma mark CLASS METHODS - SINGLETON
 /**************************************************************************/
 
 + (HealthEntryItemManager *)instance
@@ -155,6 +155,25 @@
   });
   
   return singletonInstance;
+}
+
+/**************************************************************************/
+#pragma mark CLASS METHODS - UTILITY
+/**************************************************************************/
+
++ (NSSet *)getDataTypesSetFromItems:(NSArray *)healthEntryItems
+{
+  // create empty set
+  NSMutableSet * set = [NSMutableSet set];
+  
+  // push all HKSampleType objects into the set
+  for(NSUInteger xa=0; xa<healthEntryItems.count; xa++) {
+    HKSampleType * smptyp = ((HealthEntryItem *)[healthEntryItems objectAtIndex:xa]).dataType;
+    [set addObject:smptyp];
+  }
+  
+  // return set
+  return set;
 }
 
 @end
