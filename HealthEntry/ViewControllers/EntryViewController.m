@@ -89,10 +89,9 @@
 
 - (IBAction)onRecordButton
 {
-  /**/NSLog(@"Record Button");
-  
-  // TODO: get data from each cell and associate it with its data item
-  // TODO: create NSArray of all items with data
+  // get items with valid user input
+  NSArray * vlditmarr = [[HealthEntryItemManager instance] getSelectedItemsWithValidInput];
+  /**/NSLog(@"Valid item array: %@",vlditmarr);
   
   // TODO: request permissions for all items that have data (non blank)
   

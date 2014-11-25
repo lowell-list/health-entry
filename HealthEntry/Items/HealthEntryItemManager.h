@@ -41,6 +41,11 @@
  */
 - (BOOL)isItemSelected:(HealthEntryItem *)item;
 
+/**
+ * @return All selected items with valid user input text.
+ */
+- (NSArray *)getSelectedItemsWithValidInput;
+
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/

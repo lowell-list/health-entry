@@ -124,6 +124,12 @@
   return NO;
 }
 
+- (NSArray *)getSelectedItemsWithValidInput
+{
+  NSPredicate *prd = [NSPredicate predicateWithFormat:@"(userInput != nil) && (userInput != '')"];
+  return [_selectedItems filteredArrayUsingPredicate:prd];
+}
+
 - (void)loadSelectedItems
 {
   // TODO: load all selected items from storage
