@@ -49,13 +49,13 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="When" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7m-Zv-WQ7">
-                                        <rect key="frame" x="37" y="8" width="51" height="30"/>
+                                        <rect key="frame" x="87" y="8" width="51" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="now" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eya-r3-wyM">
-                                        <rect key="frame" x="96" y="8" width="188" height="30"/>
+                                        <rect key="frame" x="146" y="8" width="88" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -76,27 +76,27 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zvi-Ks-xiC" id="ceA-pt-vue">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-zW-IWK">
-                                                    <rect key="frame" x="181" y="7" width="131" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="131" id="LpE-dv-cF1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bpb-JO-JcA">
-                                                    <rect key="frame" x="8" y="12" width="165" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="236" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-zW-IWK">
+                                                    <rect key="frame" x="252" y="7" width="60" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="LpE-dv-cF1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Jec-zW-IWK" firstAttribute="leading" secondItem="Bpb-JO-JcA" secondAttribute="trailing" constant="8" symbolic="YES" id="JGp-KC-kyW"/>
-                                                <constraint firstItem="Jec-zW-IWK" firstAttribute="top" secondItem="ceA-pt-vue" secondAttribute="topMargin" constant="-1" id="PJf-fg-WHM"/>
                                                 <constraint firstItem="Jec-zW-IWK" firstAttribute="trailing" secondItem="ceA-pt-vue" secondAttribute="trailingMargin" id="PKE-5U-kJU"/>
+                                                <constraint firstAttribute="centerY" secondItem="Bpb-JO-JcA" secondAttribute="centerY" id="cI9-jz-odO"/>
+                                                <constraint firstAttribute="centerY" secondItem="Jec-zW-IWK" secondAttribute="centerY" id="daQ-sZ-W9L"/>
                                                 <constraint firstItem="Bpb-JO-JcA" firstAttribute="leading" secondItem="ceA-pt-vue" secondAttribute="leadingMargin" id="ehk-mz-aQX"/>
-                                                <constraint firstItem="Bpb-JO-JcA" firstAttribute="centerY" secondItem="Jec-zW-IWK" secondAttribute="centerY" id="fur-3m-XjF"/>
+                                                <constraint firstItem="Jec-zW-IWK" firstAttribute="leading" secondItem="Bpb-JO-JcA" secondAttribute="trailing" constant="8" id="z6i-1L-ye1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JK5-fn-Abm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28" y="1470"/>
+            <point key="canvasLocation" x="28" y="1468"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="370-JX-mmR">
