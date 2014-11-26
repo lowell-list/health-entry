@@ -14,6 +14,12 @@
 /**************************************************************************/
 
 @interface EntryViewController()
+{
+@private
+  NSInteger     mWriteSuccessCount;
+  NSInteger     mWriteFailCount;
+  NSInteger     mWriteTotalExpectedCount;
+}
 
 /// UITableView on this ViewController
 @property (nonatomic, weak) IBOutlet UITableView * tableView;
@@ -68,11 +74,22 @@
   NSArray * vlditmarr = [[HealthEntryItemManager instance] getSelectedItemsWithValidInput];
   /**/NSLog(@"Valid item array: %@",vlditmarr);
   
+  // if no valid items, cannot continue!
+  if(vlditmarr.count==0) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Items"
+                                                    message:@"You must enter at least one item."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    return;
+  }
+  
   // get set of HKSampleType objects
   NSSet * smptypset = [HealthEntryItemManager getDataTypesSetFromItems:vlditmarr];
   /**/NSLog(@"set of types: %@",smptypset);
   
-  // request permissions...
+  // request permissions for all types we want to write
   if([HKHealthStore isHealthDataAvailable])
   {
     [self.healthStore requestAuthorizationToShareTypes:smptypset readTypes:nil completion:^(BOOL success, NSError *error) {
@@ -81,10 +98,16 @@
         return;
       }
       NSLog(@"Successfully received permissions!");
+      
+      // init write counters
+      mWriteSuccessCount = 0;
+      mWriteFailCount = 0;
+      mWriteTotalExpectedCount = vlditmarr.count;
+      
+      // write data to HealthKit
+      for(NSUInteger xa=0; xa<vlditmarr.count; xa++) { [self saveItemIntoHealthStore:[vlditmarr objectAtIndex:xa]]; }
     }];
   }
-  
-  // TODO: if permissions successful; write to HealthKit!
 }
 
 /**************************************************************************/
@@ -162,56 +185,47 @@
 #pragma mark INSTANCE METHODS - HealthKit
 /**************************************************************************/
 
-/// HealthKit Permissions
-- (NSSet *)dataTypesToWrite
+- (void)saveItemIntoHealthStore:(HealthEntryItem *)item
 {
-  HKQuantityType *dietaryCalorieEnergyType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryEnergyConsumed];
-  HKQuantityType *activeEnergyBurnType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
-  HKQuantityType *heightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-  HKQuantityType *weightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+  // convert value to double
+  double val = [item.userInput doubleValue];
+  if(val==0.0) { NSLog(@"warning: invalid value? %@ is 0.0",item.label); }
   
-  return [NSSet setWithObjects:dietaryCalorieEnergyType, activeEnergyBurnType, heightType, weightType, nil];
-}
-
-- (void)saveHeightIntoHealthStore:(double)height
-{
-  // Save the user's height into HealthKit.
-  HKUnit *inchUnit = [HKUnit inchUnit];
-  HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:inchUnit doubleValue:height];
+  // create HealthKit quantity object
+  HKQuantity *qnt = [HKQuantity quantityWithUnit:item.dataUnit doubleValue:val];
   
-  HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+  // get sample date
   NSDate *now = [NSDate date];
   
-  HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:now endDate:now];
-  
-  [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
-    if (!success) {
-      NSLog(@"An error occured saving the height sample %@. In your app, try to handle this gracefully. The error was: %@.", heightSample, error);
-      abort();
-    }
-    
-    NSLog(@"success height");
-  }];
-}
+  // create HealthKit quantity sample object
+  // TODO: improve so no (HKQuantityType *) cast is needed
+  HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:(HKQuantityType *)item.dataType quantity:qnt startDate:now endDate:now];
 
-- (void)saveWeightIntoHealthStore:(double)weight
-{
-  // Save the user's weight into HealthKit.
-  HKUnit *poundUnit = [HKUnit poundUnit];
-  HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:poundUnit doubleValue:weight];
-  
-  HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-  NSDate *now = [NSDate date];
-  
-  HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:now endDate:now];
-  
-  [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
-    if (!success) {
-      NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
-      abort();
+  // write data!
+  [self.healthStore saveObject:qntsmp withCompletion:^(BOOL success, NSError *error) {
+    
+    // increment success/fail counters
+    if(success) {
+      NSLog(@"success for %@ item",item.label);
+      mWriteSuccessCount++;
+    }
+    else {
+      NSLog(@"An error occured saving the %@ item. The error was: %@.", item.label, error);
+      mWriteFailCount++;
     }
     
-    NSLog(@"success weight");
+    // show message if this is the last item
+    if((mWriteFailCount+mWriteSuccessCount)==mWriteTotalExpectedCount)
+    {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Record Complete"
+                                                        message:[NSString stringWithFormat:@"Successfully recorded %d/%d items",mWriteSuccessCount,mWriteTotalExpectedCount]
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+      });
+    }
   }];
 }
 

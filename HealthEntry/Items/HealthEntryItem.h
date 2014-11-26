@@ -18,6 +18,8 @@
 
 @property (readonly) HKSampleType * dataType;
 
+@property (readonly) HKUnit * dataUnit;
+
 @property (readonly) NSInteger sortValue;
 
 @property (readonly,copy) NSString * entryCellReuseId;
@@ -31,7 +33,7 @@
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
-- (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label sortValue:(NSInteger)sortValue;
+- (id)initWithDataType:(HKSampleType *)dataType unit:(HKUnit *)unit label:(NSString *)label sortValue:(NSInteger)sortValue;
 
 - (void)textFieldEditingDidEnd:(UITextField *)textField;
 

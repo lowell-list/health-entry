@@ -51,17 +51,20 @@
      
      [[HealthEntryItem alloc]
       initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
-      label:NSLocalizedString(@"Energy Burned", nil)
+      unit:[HKUnit calorieUnit]
+      label:NSLocalizedString(@"Energy Burned (cal)", nil)
       sortValue:10],
      
      [[HealthEntryItem alloc]
       initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight]
-      label:NSLocalizedString(@"Height", nil)
+      unit:[HKUnit inchUnit]
+      label:NSLocalizedString(@"Height (in)", nil)
       sortValue:20],
      
      [[HealthEntryItem alloc]
       initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
-      label:NSLocalizedString(@"Weight", nil)
+      unit:[HKUnit poundUnit]
+      label:NSLocalizedString(@"Weight (lbs)", nil)
       sortValue:30],
      
      nil];

@@ -22,10 +22,11 @@
 
 @implementation HealthEntryItem
 
-- (id)initWithDataType:(HKSampleType *)dataType label:(NSString *)label sortValue:(NSInteger)sortValue {
+- (id)initWithDataType:(HKSampleType *)dataType unit:(HKUnit *)unit label:(NSString *)label sortValue:(NSInteger)sortValue {
   self = [super init];
   if(self) {
     _dataType = dataType;
+    _dataUnit = unit;
     _entryCellReuseId = @"entrySingleValueCell"; // TODO: this could be customized per item
     _label = label;
     _sortValue = sortValue;
