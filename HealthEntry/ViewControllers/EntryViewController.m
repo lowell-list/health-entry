@@ -219,7 +219,7 @@
     {
       dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Record Complete"
-                                                        message:[NSString stringWithFormat:@"Successfully recorded %d/%d items",mWriteSuccessCount,mWriteTotalExpectedCount]
+                                                        message:[NSString stringWithFormat:@"Successfully recorded %ld/%ld items",(long)mWriteSuccessCount,(long)mWriteTotalExpectedCount]
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
