@@ -105,22 +105,30 @@
       mWriteTotalExpectedCount = vlditmarr.count;
       
       // write data to HealthKit
-      for(NSUInteger xa=0; xa<vlditmarr.count; xa++) { [self saveItemIntoHealthStore:[vlditmarr objectAtIndex:xa]]; }
+      for(NSUInteger xa=0; xa<vlditmarr.count; xa++) {
+        HealthEntryItem *itm = (HealthEntryItem *)[vlditmarr objectAtIndex:xa];
+        [itm saveIntoHealthStore:_healthStore onDone:^(BOOL success) {
+          
+          // update counters
+          if(success) { mWriteSuccessCount++; }
+          else        { mWriteFailCount++;    }
+          
+          // show message if this is the last item
+          if((mWriteFailCount+mWriteSuccessCount)==mWriteTotalExpectedCount)
+          {
+            dispatch_async(dispatch_get_main_queue(), ^{
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Record Complete"
+                                                              message:[NSString stringWithFormat:@"Successfully recorded %ld/%ld items",(long)mWriteSuccessCount,(long)mWriteTotalExpectedCount]
+                                                             delegate:self
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+              [alert show];
+            });
+          }
+        }];
+      }
     }];
   }
-}
-
-/**************************************************************************/
-#pragma mark INSTANCE METHODS - UITextFieldDelegate
-/**************************************************************************/
-
-/**
- * UITextField delegate: dismiss keyboard when Return is pressed
- */
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  [textField resignFirstResponder];
-  return YES;
 }
 
 /**************************************************************************/
@@ -140,13 +148,8 @@
   // get item associated with current row
   HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]];
   
-  // set label text
-  UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:itm.label];
-  
-  // set textfield text
-  UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
-  [txtfld setText:itm.userInput];
+  // let the item update the current cell
+  [itm updateTableCell:cell];
 }
 
 /**************************************************************************/
@@ -169,64 +172,11 @@
   // get cell to use for this item
   UITableViewCell *cll = [tableView dequeueReusableCellWithIdentifier:itm.entryCellReuseId forIndexPath:indexPath];
   
-  // assign delegate
-  UITextField *txtfld = (UITextField *)[cll viewWithTag:200];
-  txtfld.delegate = self;
+  // let the item setup the cell
+  [itm setupTableCell:cll];
   
-  // add UIControlEventEditingDidEnd handler
-  [txtfld removeTarget:itm action:NULL forControlEvents:UIControlEventEditingDidEnd];
-  [txtfld addTarget:itm action:@selector(textFieldEditingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
-
   // return cell
   return cll;
-}
-
-/**************************************************************************/
-#pragma mark INSTANCE METHODS - HealthKit
-/**************************************************************************/
-
-- (void)saveItemIntoHealthStore:(HealthEntryItem *)item
-{
-  // convert value to double
-  double val = [item.userInput doubleValue];
-  if(val==0.0) { NSLog(@"warning: invalid value? %@ is 0.0",item.label); }
-  
-  // create HealthKit quantity object
-  HKQuantity *qnt = [HKQuantity quantityWithUnit:item.dataUnit doubleValue:val];
-  
-  // get sample date
-  NSDate *now = [NSDate date];
-  
-  // create HealthKit quantity sample object
-  // TODO: improve so no (HKQuantityType *) cast is needed
-  HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:(HKQuantityType *)item.dataType quantity:qnt startDate:now endDate:now];
-
-  // write data!
-  [self.healthStore saveObject:qntsmp withCompletion:^(BOOL success, NSError *error) {
-    
-    // increment success/fail counters
-    if(success) {
-      NSLog(@"success for %@ item",item.label);
-      mWriteSuccessCount++;
-    }
-    else {
-      NSLog(@"An error occured saving the %@ item. The error was: %@.", item.label, error);
-      mWriteFailCount++;
-    }
-    
-    // show message if this is the last item
-    if((mWriteFailCount+mWriteSuccessCount)==mWriteTotalExpectedCount)
-    {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Record Complete"
-                                                        message:[NSString stringWithFormat:@"Successfully recorded %ld/%ld items",(long)mWriteSuccessCount,(long)mWriteTotalExpectedCount]
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-      });
-    }
-  }];
 }
 
 /**************************************************************************/

@@ -22,15 +22,14 @@
 
 @implementation HealthEntryItem
 
-- (id)initWithDataType:(HKSampleType *)dataType unit:(HKUnit *)unit label:(NSString *)label sortValue:(NSInteger)sortValue {
+- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue entryCellReuseId:(NSString *)entryCellReuseId
+{
   self = [super init];
   if(self) {
-    _dataType = dataType;
-    _dataUnit = unit;
-    _entryCellReuseId = @"entrySingleValueCell"; // TODO: this could be customized per item
     _label = label;
     _sortValue = sortValue;
-    _userInput = @"";
+    _entryCellReuseId = entryCellReuseId;
+    _isInputValid = NO;
   }
   return self;
 }
@@ -43,15 +42,24 @@
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
-- (NSString *)description
-{
-  return [NSString stringWithFormat:@"label: %@; userInput: %@", _label, _userInput];
+- (NSString *)description {
+  return [NSString stringWithFormat:@"[%@]",_label];
 }
 
-- (void)textFieldEditingDidEnd:(UITextField *)textField
-{
-  _userInput = textField.text;
-  /**/NSLog(@"set userInput text to [%@] for item [%@]",_userInput,_label);
+- (void)setupTableCell:(UITableViewCell *)cell {
+  // override in subclass
+}
+
+- (void)updateTableCell:(UITableViewCell *)cell {
+  // override in subclass
+}
+
+- (NSSet *)dataTypes {
+  return [NSSet set]; // override in subclass
+}
+
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone {
+  // override in subclass
 }
 
 /**************************************************************************/

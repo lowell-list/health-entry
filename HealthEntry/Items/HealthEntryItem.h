@@ -11,31 +11,46 @@
 @import UIKit;
 
 @interface HealthEntryItem : NSObject
+{
+@protected
+  NSString * _label;
+  BOOL _isInputValid;
+}
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
 
-@property (readonly) HKSampleType * dataType;
-
-@property (readonly) HKUnit * dataUnit;
-
-@property (readonly) NSInteger sortValue;
-
-@property (readonly,copy) NSString * entryCellReuseId;
-
+/// item description label
 @property (readonly,copy) NSString * label;
 
-/// The string that the user entered for this item
-@property (readonly,copy) NSString * userInput;
+/// a value for how this item should be sorted
+@property (readonly) NSInteger sortValue;
+
+/// identifies the table cell prototype to use for this item.
+@property (readonly,copy) NSString * entryCellReuseId;
+
+/// YES if all user input for this item is valid.
+@property (readonly) BOOL isInputValid;
 
 /**************************************************************************/
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
-- (id)initWithDataType:(HKSampleType *)dataType unit:(HKUnit *)unit label:(NSString *)label sortValue:(NSInteger)sortValue;
+/// initializes this item (base class data only)
+- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue entryCellReuseId:(NSString *)entryCellReuseId;
 
-- (void)textFieldEditingDidEnd:(UITextField *)textField;
+/// initializes a new table cell for this item
+- (void)setupTableCell:(UITableViewCell *)cell;
+
+/// refreshes a table cell for this item
+- (void)updateTableCell:(UITableViewCell *)cell;
+
+/// Returns a NSSet of all data types written by this item (may be more than one)
+- (NSSet *)dataTypes;
+
+/// Saves this item into the given HKHealthStore, then calls the given callback handler, if not nil.
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS

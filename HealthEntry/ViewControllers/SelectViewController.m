@@ -39,7 +39,6 @@
   [super viewDidLoad];
 
   _supportedItems = [HealthEntryItemManager instance].supportedItems;
-  /**/NSLog(@"Supported Items: %@",_supportedItems);
 }
 
 /**************************************************************************/

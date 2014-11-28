@@ -7,6 +7,7 @@
 //
 
 #import "HealthEntryItemManager.h"
+#import "SimpleHealthEntryItem.h"
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
@@ -49,73 +50,86 @@
   _supportedItems =
     [[NSArray alloc] initWithObjects:
 
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Body Fat Percentage (%)", nil)
+      sortValue:10
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage]
       unit:[HKUnit percentUnit]
-      label:NSLocalizedString(@"Body Fat Percentage (%)", nil)
-      sortValue:10],
+      ],
 
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Body Mass Index", nil)
+      sortValue:20
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex]
       unit:[HKUnit countUnit]
-      label:NSLocalizedString(@"Body Mass Index", nil)
-      sortValue:20],
+      ],
 
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Weight (lbs)", nil)
+      sortValue:30
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
       unit:[HKUnit poundUnit]
-      label:NSLocalizedString(@"Weight (lbs)", nil)
-      sortValue:30],
-     
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose]
+      ],
+
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Blood Glucose (mg/dL)", nil)
+      sortValue:40
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose]
       unit:[HKUnit unitFromString:@"mg/dL"]
-      label:NSLocalizedString(@"Blood Glucose (mg/dL)", nil)
-      sortValue:40],
-     
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation]
+      ],
+
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Oxygen Saturation (%)", nil)
+      sortValue:50
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation]
       unit:[HKUnit percentUnit]
-      label:NSLocalizedString(@"Oxygen Saturation (%)", nil)
-      sortValue:50],
+      ],
      
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Body Temperature (deg F)", nil)
+      sortValue:60
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature]
       unit:[HKUnit degreeFahrenheitUnit]
-      label:NSLocalizedString(@"Body Temperature (deg F)", nil)
-      sortValue:60],
-     
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]
+      ],
+
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Heart Rate (beats / min)", nil)
+      sortValue:70
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]
       unit:[HKUnit unitFromString:@"count/min"]
-      label:NSLocalizedString(@"Heart Rate (beats / min)", nil)
-      sortValue:70],
+      ],
      
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Respiratory Rate (count / min)", nil)
+      sortValue:80
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate]
       unit:[HKUnit unitFromString:@"count/min"]
-      label:NSLocalizedString(@"Respiratory Rate (count / min)", nil)
-      sortValue:80],
-     
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
+      ],
+
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Active Calories (cal)", nil)
+      sortValue:90
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
       unit:[HKUnit calorieUnit]
-      label:NSLocalizedString(@"Active Calories (cal)", nil)
-      sortValue:90],
+      ],
      
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Cycling Distance (miles)", nil)
+      sortValue:100
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling]
       unit:[HKUnit mileUnit]
-      label:NSLocalizedString(@"Cycling Distance (miles)", nil)
-      sortValue:100],
+      ],
      
-     [[HealthEntryItem alloc]
-      initWithDataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning]
+     [[SimpleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Walk/Run Distance (miles)", nil)
+      sortValue:110
+      dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning]
       unit:[HKUnit mileUnit]
-      label:NSLocalizedString(@"Walk/Run Distance (miles)", nil)
-      sortValue:110],
-     
+      ],
+
      nil];
+
+  /**/NSLog(@"Supported Items: %@",_supportedItems);
 }
 
 /**************************************************************************/
@@ -170,14 +184,9 @@
   [self saveSelectedItems];
 }
 
-- (BOOL)isItemSelected:(HealthEntryItem *)item
-{
-  return NO;
-}
-
 - (NSArray *)getSelectedItemsWithValidInput
 {
-  NSPredicate *prd = [NSPredicate predicateWithFormat:@"(userInput != nil) && (userInput != '')"];
+  NSPredicate *prd = [NSPredicate predicateWithFormat:@"isInputValid == YES"];
   return [_selectedItems filteredArrayUsingPredicate:prd];
 }
 
@@ -219,8 +228,9 @@
   
   // push all HKSampleType objects into the set
   for(NSUInteger xa=0; xa<healthEntryItems.count; xa++) {
-    HKSampleType * smptyp = ((HealthEntryItem *)[healthEntryItems objectAtIndex:xa]).dataType;
-    [set addObject:smptyp];
+    // merge in all data types for this item
+    NSSet * itmdtatypset = [((HealthEntryItem *)[healthEntryItems objectAtIndex:xa]) dataTypes];
+    [set unionSet:itmdtatypset];
   }
   
   // return set

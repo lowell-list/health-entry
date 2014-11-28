@@ -36,12 +36,6 @@
 - (void)unselectItem:(HealthEntryItem *)item;
 
 /**
- * Checks if the given item is selected.
- * @return YES if the item is selected; NO otherwise
- */
-- (BOOL)isItemSelected:(HealthEntryItem *)item;
-
-/**
  * @return All selected items with valid user input text.
  */
 - (NSArray *)getSelectedItemsWithValidInput;
