@@ -77,15 +77,15 @@
   
   // set data label 1 and text field 1
   lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:[NSString stringWithFormat:@"%@   %@",_label,_dataLabel1]];
+  [lbl setText:[NSString stringWithFormat:@"%@   %@",self.label,self.dataLabel1]];
   txtfld = (UITextField *)[cell viewWithTag:200];
-  [txtfld setText:_userInput1];
+  [txtfld setText:self.userInput1];
 
   // set data label 2 and text field 2
   lbl = (UILabel *)[cell viewWithTag:300];
-  [lbl setText:[NSString stringWithFormat:@"%@",_dataLabel2]];
+  [lbl setText:[NSString stringWithFormat:@"%@",self.dataLabel2]];
   txtfld = (UITextField *)[cell viewWithTag:400];
-  [txtfld setText:_userInput2];
+  [txtfld setText:self.userInput2];
 }
 
 - (NSSet *)dataTypes {
@@ -130,12 +130,12 @@
 - (void)textFieldEditingDidEnd:(UITextField *)textField
 {
   // get user text input
-  if(textField.tag==200) { _userInput1 = textField.text; /**/NSLog(@"set userInput1 text to [%@] for item %@",_userInput1,self); }
-  if(textField.tag==400) { _userInput2 = textField.text; /**/NSLog(@"set userInput2 text to [%@] for item %@",_userInput2,self); }
+  if(textField.tag==200) { _userInput1 = textField.text; }
+  if(textField.tag==400) { _userInput2 = textField.text; }
   
   // determine if all input is valid
-  _isInputValid = (_userInput1!=nil && _userInput1.length>0) &&
-                  (_userInput2!=nil && _userInput2.length>0);
+  _isInputValid = (self.userInput1!=nil && self.userInput1.length>0) &&
+                  (self.userInput2!=nil && self.userInput2.length>0);
 }
 
 /**************************************************************************/
