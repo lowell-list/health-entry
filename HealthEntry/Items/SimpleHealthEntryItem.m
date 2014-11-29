@@ -72,7 +72,6 @@
 {
   // convert single value to double
   double val = [_userInput doubleValue];
-  if(val==0.0) { NSLog(@"warning: invalid value? %@ is 0.0",self); }
   
   // create HealthKit quantity object
   HKQuantity *qnt = [HKQuantity quantityWithUnit:_dataUnit doubleValue:val];
@@ -92,6 +91,10 @@
     onDone(success);
   }];
 }
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - Utility
+/**************************************************************************/
 
 - (void)textFieldEditingDidEnd:(UITextField *)textField
 {

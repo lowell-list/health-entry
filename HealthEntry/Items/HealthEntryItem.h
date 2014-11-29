@@ -24,13 +24,13 @@
 }
 
 /// item description label
-@property (readonly,copy) NSString * label;
+@property (readonly) NSString * label;
 
 /// a value for how this item should be sorted
 @property (readonly) NSInteger sortValue;
 
 /// identifies the table cell prototype to use for this item.
-@property (readonly,copy) NSString * entryCellReuseId;
+@property (readonly) NSString * entryCellReuseId;
 
 /// Row height for entry table cell.
 @property (readonly) CGFloat rowHeight;

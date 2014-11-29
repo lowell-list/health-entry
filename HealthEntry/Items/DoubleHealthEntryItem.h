@@ -20,6 +20,9 @@
 @protected
 }
 
+/// correlation type
+@property (readonly) HKCorrelationType * correlationType;
+
 /// data label 1
 @property (readonly) NSString * dataLabel1;
 
@@ -50,6 +53,7 @@
 
 /// initialize
 - (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue
+    correlationType:(HKCorrelationType *)correlationType
          dataLabel1:(NSString *)dataLabel1 dataType1:(HKQuantityType *)dataType1 unit1:(HKUnit *)unit1
          dataLabel2:(NSString *)dataLabel2 dataType2:(HKQuantityType *)dataType2 unit2:(HKUnit *)unit2;
 

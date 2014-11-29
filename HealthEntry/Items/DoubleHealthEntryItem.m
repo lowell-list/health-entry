@@ -23,11 +23,14 @@
 @implementation DoubleHealthEntryItem
 
 - (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue
+    correlationType:(HKCorrelationType *)correlationType
          dataLabel1:(NSString *)dataLabel1 dataType1:(HKQuantityType *)dataType1 unit1:(HKUnit *)unit1
-         dataLabel2:(NSString *)dataLabel2 dataType2:(HKQuantityType *)dataType2 unit2:(HKUnit *)unit2 {
+         dataLabel2:(NSString *)dataLabel2 dataType2:(HKQuantityType *)dataType2 unit2:(HKUnit *)unit2
+{
   self = [super initWithLabel:label sortValue:sortValue entryCellReuseId:@"entryDoubleValueCell"];
   if(self) {
     _rowHeight = 84;
+    _correlationType = correlationType;
     
     _dataLabel1 = dataLabel1;
     _dataType1 = dataType1;
@@ -52,7 +55,7 @@
 
 - (void)setupTableCell:(UITableViewCell *)cell
 {
-  UITextField *txtfld;        // text field reference
+  UITextField   *txtfld;      // text field reference
   
   // setup text field 1
   txtfld = (UITextField *)[cell viewWithTag:200];
@@ -74,7 +77,7 @@
   
   // set data label 1 and text field 1
   lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:[NSString stringWithFormat:@"%@ %@",_label,_dataLabel1]];
+  [lbl setText:[NSString stringWithFormat:@"%@   %@",_label,_dataLabel1]];
   txtfld = (UITextField *)[cell viewWithTag:200];
   [txtfld setText:_userInput1];
 
@@ -84,6 +87,45 @@
   txtfld = (UITextField *)[cell viewWithTag:400];
   [txtfld setText:_userInput2];
 }
+
+- (NSSet *)dataTypes {
+  return [NSSet setWithObjects:self.dataType1,self.dataType2,nil];
+}
+
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone
+{
+  // convert user inputs to doubles
+  double val1 = [self.userInput1 doubleValue];
+  double val2 = [self.userInput2 doubleValue];
+  
+  // create HealthKit quantity objects
+  HKQuantity *qnt1 = [HKQuantity quantityWithUnit:self.dataUnit1 doubleValue:val1];
+  HKQuantity *qnt2 = [HKQuantity quantityWithUnit:self.dataUnit2 doubleValue:val2];
+  
+  // get sample date
+  NSDate *now = [NSDate date];
+  
+  // create HealthKit quantity sample objects
+  HKQuantitySample *qntsmp1 = [HKQuantitySample quantitySampleWithType:self.dataType1 quantity:qnt1 startDate:now endDate:now];
+  HKQuantitySample *qntsmp2 = [HKQuantitySample quantitySampleWithType:self.dataType2 quantity:qnt2 startDate:now endDate:now];
+
+  // create HKCorrelation
+  NSSet *objset=[NSSet setWithObjects:qntsmp1,qntsmp2,nil];
+  HKCorrelation *crl = [HKCorrelation correlationWithType:self.correlationType startDate:now endDate:now objects:objset];
+  
+  // write data!
+  [healthStore saveObject:crl withCompletion:^(BOOL success, NSError *error) {
+    // report write status
+    if(success) { NSLog(@"success for item %@",self);                                             }
+    else        { NSLog(@"An error occured saving the item %@. The error was: %@.", self, error); }
+    // call onDone handler
+    onDone(success);
+  }];
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - Utility
+/**************************************************************************/
 
 - (void)textFieldEditingDidEnd:(UITextField *)textField
 {
