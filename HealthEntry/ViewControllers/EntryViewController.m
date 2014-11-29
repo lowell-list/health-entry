@@ -16,9 +16,12 @@
 @interface EntryViewController()
 {
 @private
-  NSInteger     mWriteSuccessCount;
-  NSInteger     mWriteFailCount;
-  NSInteger     mWriteTotalExpectedCount;
+  NSInteger       mWriteSuccessCount;
+  NSInteger       mWriteFailCount;
+  NSInteger       mWriteTotalExpectedCount;
+  UIDatePicker *  mDatePicker;
+  UIDatePicker *  mTimePicker;
+  NSDate *        mEntryDate;
 }
 
 /// UITableView on this ViewController
@@ -43,6 +46,11 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // init
+  mDatePicker = nil;
+  mTimePicker = nil;
+  mEntryDate = nil;
 
   // tap gesture recognizer to auto dismiss keyboard by tapping somewhere else
   [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
@@ -51,6 +59,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
+  
+  // reset date/time to now
+  [self updateEntryDate:[NSDate date]];
+
+  // remove date/time pickers if either happens to be showing
+  [self disposeDatePicker];
+  [self disposeTimePicker];
   
   // reload table view data every time this view appears
   [_tableView reloadData];
@@ -66,10 +81,30 @@
 - (void)handleTapGesture:(UIGestureRecognizer *)gestureRecognizer
 {
   [self.view endEditing:YES];
+  [self disposeDatePicker];
+  [self disposeTimePicker];
+}
+
+- (IBAction)onDateButton
+{
+  // toggle picker
+  if(mDatePicker) { [self disposeDatePicker]; }
+  else            { [self showDatePicker];    }
+}
+
+- (IBAction)onTimeButton
+{
+  // toggle picker
+  if(mTimePicker) { [self disposeTimePicker]; }
+  else            { [self showTimePicker];    }
 }
 
 - (IBAction)onRecordButton
 {
+  // remove date/time pickers if either happens to be showing
+  [self disposeDatePicker];
+  [self disposeTimePicker];
+  
   // get items with valid user input
   NSArray * vlditmarr = [[HealthEntryItemManager instance] getSelectedItemsWithValidInput];
   /**/NSLog(@"Valid item array: %@",vlditmarr);
@@ -107,7 +142,7 @@
       // write data to HealthKit
       for(NSUInteger xa=0; xa<vlditmarr.count; xa++) {
         HealthEntryItem *itm = (HealthEntryItem *)[vlditmarr objectAtIndex:xa];
-        [itm saveIntoHealthStore:_healthStore onDone:^(BOOL success) {
+        [itm saveIntoHealthStore:_healthStore entryDate:mEntryDate onDone:^(BOOL success) {
           
           // update counters
           if(success) { mWriteSuccessCount++; }
@@ -178,6 +213,107 @@
   
   // return cell
   return cll;
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - Entry Date
+/**************************************************************************/
+
+- (void)updateEntryDate:(NSDate *)date
+{
+  mEntryDate = date;
+  [self refreshDateButtonTitle];
+  [self refreshTimeButtonTitle];
+}
+
+- (void)refreshDateButtonTitle
+{
+  if(!mEntryDate) { return; } // nothing to do!
+
+  NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+  [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+  [mDateButton setTitle:[dateFormatter stringFromDate:mEntryDate] forState:UIControlStateNormal];
+}
+
+- (void)refreshTimeButtonTitle
+{
+  if(!mEntryDate) { return; } // nothing to do!
+  
+  NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateStyle:NSDateFormatterNoStyle];
+  [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+  [mTimeButton setTitle:[dateFormatter stringFromDate:mEntryDate] forState:UIControlStateNormal];
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - Date / Time Pickers
+/**************************************************************************/
+
+- (void)showDatePicker
+{
+  // do nothing if a date picker is already showing
+  if(mDatePicker) { return; }
+  
+  // dispose any time picker that may be showing
+  [self disposeTimePicker];
+  
+  // create and show new date picker
+  mDatePicker = [[UIDatePicker alloc] init];
+  mDatePicker.date = mEntryDate;
+  mDatePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  mDatePicker.datePickerMode = UIDatePickerModeDate;
+  [mDatePicker addTarget:self action:@selector(onDatePickerChanged:) forControlEvents:UIControlEventValueChanged];
+  CGSize pkrsiz = [mDatePicker sizeThatFits:CGSizeZero];
+  mDatePicker.frame = CGRectMake(0.0, 100.0, pkrsiz.width, 460);
+  mDatePicker.backgroundColor = [UIColor whiteColor];
+  [self.view addSubview:mDatePicker];
+}
+
+- (void)onDatePickerChanged:(UIDatePicker *)sender
+{
+  [self updateEntryDate:[sender date]];
+}
+
+- (void)disposeDatePicker
+{
+  if(mDatePicker) {
+    [mDatePicker removeFromSuperview];
+    mDatePicker = nil;
+  }
+}
+
+- (void)showTimePicker
+{
+  // do nothing if a time picker is already showing
+  if(mTimePicker) { return; }
+  
+  // dispose any date picker that may be showing
+  [self disposeDatePicker];
+
+  // create and show new time picker
+  mTimePicker = [[UIDatePicker alloc] init];
+  mTimePicker.date = mEntryDate;
+  mTimePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  mTimePicker.datePickerMode = UIDatePickerModeTime;
+  [mTimePicker addTarget:self action:@selector(onTimePickerChanged:) forControlEvents:UIControlEventValueChanged];
+  CGSize pkrsiz = [mTimePicker sizeThatFits:CGSizeZero];
+  mTimePicker.frame = CGRectMake(0.0, 100.0, pkrsiz.width, 460);
+  mTimePicker.backgroundColor = [UIColor whiteColor];
+  [self.view addSubview:mTimePicker];
+}
+
+- (void)onTimePickerChanged:(UIDatePicker *)sender
+{
+  [self updateEntryDate:[sender date]];
+}
+
+- (void)disposeTimePicker
+{
+  if(mTimePicker) {
+    [mTimePicker removeFromSuperview];
+    mTimePicker = nil;
+  }
 }
 
 /**************************************************************************/

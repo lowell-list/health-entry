@@ -55,7 +55,7 @@
 - (NSSet *)dataTypes;
 
 /// Saves this item into the given HKHealthStore, then calls the given callback handler, if not nil.
-- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone;
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore entryDate:(NSDate *)entryDate onDone:(void(^)(BOOL success))onDone;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS

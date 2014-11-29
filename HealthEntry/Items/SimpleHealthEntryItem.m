@@ -68,7 +68,7 @@
   return [NSSet setWithObject:_dataType]; // SimpleHealthEntryItems have only one data type
 }
 
-- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore entryDate:(NSDate *)entryDate onDone:(void(^)(BOOL success))onDone
 {
   // convert single value to double
   double val = [_userInput doubleValue];
@@ -76,11 +76,8 @@
   // create HealthKit quantity object
   HKQuantity *qnt = [HKQuantity quantityWithUnit:_dataUnit doubleValue:val];
   
-  // get sample date
-  NSDate *now = [NSDate date];
-  
   // create HealthKit quantity sample object
-  HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:_dataType quantity:qnt startDate:now endDate:now];
+  HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:_dataType quantity:qnt startDate:entryDate endDate:entryDate];
   
   // write data!
   [healthStore saveObject:qntsmp withCompletion:^(BOOL success, NSError *error) {

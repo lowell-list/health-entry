@@ -92,7 +92,7 @@
   return [NSSet setWithObjects:self.dataType1,self.dataType2,nil];
 }
 
-- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore entryDate:(NSDate *)entryDate onDone:(void(^)(BOOL success))onDone
 {
   // convert user inputs to doubles
   double val1 = [self.userInput1 doubleValue];
@@ -102,16 +102,13 @@
   HKQuantity *qnt1 = [HKQuantity quantityWithUnit:self.dataUnit1 doubleValue:val1];
   HKQuantity *qnt2 = [HKQuantity quantityWithUnit:self.dataUnit2 doubleValue:val2];
   
-  // get sample date
-  NSDate *now = [NSDate date];
-  
   // create HealthKit quantity sample objects
-  HKQuantitySample *qntsmp1 = [HKQuantitySample quantitySampleWithType:self.dataType1 quantity:qnt1 startDate:now endDate:now];
-  HKQuantitySample *qntsmp2 = [HKQuantitySample quantitySampleWithType:self.dataType2 quantity:qnt2 startDate:now endDate:now];
+  HKQuantitySample *qntsmp1 = [HKQuantitySample quantitySampleWithType:self.dataType1 quantity:qnt1 startDate:entryDate endDate:entryDate];
+  HKQuantitySample *qntsmp2 = [HKQuantitySample quantitySampleWithType:self.dataType2 quantity:qnt2 startDate:entryDate endDate:entryDate];
 
   // create HKCorrelation
   NSSet *objset=[NSSet setWithObjects:qntsmp1,qntsmp2,nil];
-  HKCorrelation *crl = [HKCorrelation correlationWithType:self.correlationType startDate:now endDate:now objects:objset];
+  HKCorrelation *crl = [HKCorrelation correlationWithType:self.correlationType startDate:entryDate endDate:entryDate objects:objset];
   
   // write data!
   [healthStore saveObject:crl withCompletion:^(BOOL success, NSError *error) {

@@ -48,17 +48,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYf-d7-u47" userLabel="Timestamp View">
                                 <rect key="frame" x="0.0" y="64" width="320" height="46"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="When" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7m-Zv-WQ7">
-                                        <rect key="frame" x="87" y="8" width="51" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="now" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eya-r3-wyM">
-                                        <rect key="frame" x="146" y="8" width="88" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kC8-b9-oH8">
+                                        <rect key="frame" x="36" y="8" width="171" height="30"/>
+                                        <state key="normal" title="Date">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onDateButton" destination="Ngq-Ec-Ur0" eventType="touchUpInside" id="yWB-qG-Qg1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkU-JB-3NN">
+                                        <rect key="frame" x="215" y="8" width="69" height="30"/>
+                                        <state key="normal" title="Time">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTimeButton" destination="Ngq-Ec-Ur0" eventType="touchUpInside" id="OyU-8w-Tu4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -182,6 +189,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Data Entry" id="rG8-dO-Pgr"/>
                     <connections>
+                        <outlet property="mDateButton" destination="kC8-b9-oH8" id="Q07-vx-Hmq"/>
+                        <outlet property="mTimeButton" destination="qkU-JB-3NN" id="GDH-3N-P7I"/>
                         <outlet property="tableView" destination="xau-75-XIL" id="1TP-eS-KkX"/>
                     </connections>
                 </viewController>

@@ -14,6 +14,10 @@
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
+{
+  IBOutlet UIButton *mDateButton;
+  IBOutlet UIButton *mTimeButton;
+}
 
 @property (nonatomic) HKHealthStore * healthStore;
 
@@ -21,10 +25,14 @@
 #pragma mark INSTANCE METHODS
 /**************************************************************************/
 
-/**
- * Triggered when the Record button is pressed.
- */
-- (void)onRecordButton;
+/// Date button handler
+- (IBAction)onDateButton;
+
+/// Time button handler
+- (IBAction)onTimeButton;
+
+/// Record button handler
+- (IBAction)onRecordButton;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS

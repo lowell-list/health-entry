@@ -59,7 +59,7 @@
   return [NSSet set]; // override in subclass
 }
 
-- (void)saveIntoHealthStore:(HKHealthStore *)healthStore onDone:(void(^)(BOOL success))onDone {
+- (void)saveIntoHealthStore:(HKHealthStore *)healthStore entryDate:(NSDate *)entryDate onDone:(void(^)(BOOL success))onDone {
   // override in subclass
 }
 
