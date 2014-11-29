@@ -154,6 +154,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ED4B81019283674002C7E33 /* Build configuration list for PBXNativeTarget "HealthEntry" */;
 			buildPhases = (
+				C497A4D11A293F8400D86BA4 /* Bump Build Number Script */,
 				4ED4B7F019283674002C7E33 /* Sources */,
 				4ED4B7F119283674002C7E33 /* Frameworks */,
 				4ED4B7F219283674002C7E33 /* Headers */,
@@ -217,6 +218,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C497A4D11A293F8400D86BA4 /* Bump Build Number Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bump Build Number Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/tools/bumpBuildNumber.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4ED4B7F019283674002C7E33 /* Sources */ = {
