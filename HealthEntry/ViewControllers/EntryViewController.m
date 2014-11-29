@@ -136,11 +136,12 @@
 /**************************************************************************/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 44;
+  HealthEntryItem *itm = [[self selectedItems] objectAtIndex:[indexPath row]]; // get item associated with current row
+  return itm.rowHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 44;
+  return [self tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

@@ -15,6 +15,8 @@
 		C416FC6D1A22E8C200655AF6 /* HealthEntryItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C416FC661A22E8C200655AF6 /* HealthEntryItemManager.m */; };
 		C416FC6E1A22E8C200655AF6 /* Template.h in Headers */ = {isa = PBXBuildFile; fileRef = C416FC681A22E8C200655AF6 /* Template.h */; };
 		C416FC6F1A22E8C200655AF6 /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = C416FC691A22E8C200655AF6 /* Template.m */; };
+		C497A4D41A29494900D86BA4 /* DoubleHealthEntryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C497A4D21A29494900D86BA4 /* DoubleHealthEntryItem.h */; };
+		C497A4D51A29494900D86BA4 /* DoubleHealthEntryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C497A4D31A29494900D86BA4 /* DoubleHealthEntryItem.m */; };
 		C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD085419F32B38000F50BA /* AppDelegate.h */; };
 		C4BD086319F32B38000F50BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD085519F32B38000F50BA /* AppDelegate.m */; };
 		C4BD086419F32B38000F50BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4BD085619F32B38000F50BA /* Localizable.strings */; };
@@ -38,6 +40,8 @@
 		C416FC661A22E8C200655AF6 /* HealthEntryItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthEntryItemManager.m; sourceTree = "<group>"; };
 		C416FC681A22E8C200655AF6 /* Template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 		C416FC691A22E8C200655AF6 /* Template.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
+		C497A4D21A29494900D86BA4 /* DoubleHealthEntryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleHealthEntryItem.h; sourceTree = "<group>"; };
+		C497A4D31A29494900D86BA4 /* DoubleHealthEntryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleHealthEntryItem.m; sourceTree = "<group>"; };
 		C4BD085419F32B38000F50BA /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4BD085519F32B38000F50BA /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4BD085719F32B38000F50BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				C416FC661A22E8C200655AF6 /* HealthEntryItemManager.m */,
 				C40F9F1E1A26E4E60039535A /* SimpleHealthEntryItem.h */,
 				C40F9F1F1A26E4E60039535A /* SimpleHealthEntryItem.m */,
+				C497A4D21A29494900D86BA4 /* DoubleHealthEntryItem.h */,
+				C497A4D31A29494900D86BA4 /* DoubleHealthEntryItem.m */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 				C416FC6C1A22E8C200655AF6 /* HealthEntryItemManager.h in Headers */,
 				C4BD086A19F32B38000F50BA /* EntryViewController.h in Headers */,
 				C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */,
+				C497A4D41A29494900D86BA4 /* DoubleHealthEntryItem.h in Headers */,
 				C416FC6A1A22E8C200655AF6 /* HealthEntryItem.h in Headers */,
 				C416FC6E1A22E8C200655AF6 /* Template.h in Headers */,
 				C4BD086C19F32B38000F50BA /* SelectViewController.h in Headers */,
@@ -242,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4BD086D19F32B38000F50BA /* SelectViewController.m in Sources */,
+				C497A4D51A29494900D86BA4 /* DoubleHealthEntryItem.m in Sources */,
 				C416FC6D1A22E8C200655AF6 /* HealthEntryItemManager.m in Sources */,
 				C4BD086819F32B38000F50BA /* main.m in Sources */,
 				C40F9F211A26E4E60039535A /* SimpleHealthEntryItem.m in Sources */,

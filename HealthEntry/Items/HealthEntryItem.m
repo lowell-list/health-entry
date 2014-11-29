@@ -29,6 +29,7 @@
     _label = label;
     _sortValue = sortValue;
     _entryCellReuseId = entryCellReuseId;
+    _rowHeight = 44;
     _isInputValid = NO;
   }
   return self;

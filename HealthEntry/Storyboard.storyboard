@@ -100,6 +100,55 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryDoubleValueCell" rowHeight="84" id="5vH-ic-mB6" userLabel="doubleEntryCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5vH-ic-mB6" id="Zga-2i-crq">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsV-UK-rjw">
+                                                    <rect key="frame" x="8" y="11" width="236" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="86E-XN-Zmk" userLabel="Text1">
+                                                    <rect key="frame" x="252" y="7" width="60" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="cu3-cT-vYs"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZ7-8I-eOP">
+                                                    <rect key="frame" x="8" y="49" width="236" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="400" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcn-B0-h2B" userLabel="Text2">
+                                                    <rect key="frame" x="252" y="45" width="60" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="Sld-xW-8md"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="86E-XN-Zmk" firstAttribute="centerY" secondItem="XsV-UK-rjw" secondAttribute="centerY" id="CoC-gn-Vig"/>
+                                                <constraint firstItem="86E-XN-Zmk" firstAttribute="leading" secondItem="XsV-UK-rjw" secondAttribute="trailing" constant="8" id="UPf-jZ-qxJ"/>
+                                                <constraint firstItem="KZ7-8I-eOP" firstAttribute="leading" secondItem="Zga-2i-crq" secondAttribute="leadingMargin" id="aNM-Sy-iVc"/>
+                                                <constraint firstItem="86E-XN-Zmk" firstAttribute="trailing" secondItem="Zga-2i-crq" secondAttribute="trailingMargin" id="gm1-SB-KKv"/>
+                                                <constraint firstItem="Fcn-B0-h2B" firstAttribute="top" secondItem="86E-XN-Zmk" secondAttribute="bottom" constant="8" id="hHH-Z7-TzN"/>
+                                                <constraint firstItem="Fcn-B0-h2B" firstAttribute="trailing" secondItem="Zga-2i-crq" secondAttribute="trailingMargin" id="hJj-1D-mqQ"/>
+                                                <constraint firstItem="86E-XN-Zmk" firstAttribute="top" secondItem="Zga-2i-crq" secondAttribute="topMargin" constant="-1" id="i9m-Dx-dof"/>
+                                                <constraint firstItem="XsV-UK-rjw" firstAttribute="leading" secondItem="Zga-2i-crq" secondAttribute="leadingMargin" id="mHL-aX-h4r"/>
+                                                <constraint firstItem="KZ7-8I-eOP" firstAttribute="centerY" secondItem="Fcn-B0-h2B" secondAttribute="centerY" id="mpG-0d-iiw"/>
+                                                <constraint firstItem="Fcn-B0-h2B" firstAttribute="leading" secondItem="KZ7-8I-eOP" secondAttribute="trailing" constant="8" id="yG2-Hl-GIp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Ngq-Ec-Ur0" id="8IM-nE-t6T"/>

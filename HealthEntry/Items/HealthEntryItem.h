@@ -11,15 +11,17 @@
 @import UIKit;
 
 @interface HealthEntryItem : NSObject
-{
-@protected
-  NSString * _label;
-  BOOL _isInputValid;
-}
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
+
+{
+@protected
+  NSString *  _label;
+  CGFloat     _rowHeight;
+  BOOL        _isInputValid;
+}
 
 /// item description label
 @property (readonly,copy) NSString * label;
@@ -29,6 +31,9 @@
 
 /// identifies the table cell prototype to use for this item.
 @property (readonly,copy) NSString * entryCellReuseId;
+
+/// Row height for entry table cell.
+@property (readonly) CGFloat rowHeight;
 
 /// YES if all user input for this item is valid.
 @property (readonly) BOOL isInputValid;

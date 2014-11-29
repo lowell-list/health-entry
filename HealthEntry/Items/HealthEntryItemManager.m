@@ -8,6 +8,7 @@
 
 #import "HealthEntryItemManager.h"
 #import "SimpleHealthEntryItem.h"
+#import "DoubleHealthEntryItem.h"
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
@@ -83,6 +84,12 @@
       sortValue:50
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation]
       unit:[HKUnit percentUnit]
+      ],
+     
+     [[DoubleHealthEntryItem alloc]
+      initWithLabel:NSLocalizedString(@"Blood Pressure", nil) sortValue:55
+      dataLabel1:@"Systolic" dataType1:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic] unit1:[HKUnit millimeterOfMercuryUnit]
+      dataLabel2:@"Diastolic" dataType2:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic] unit2:[HKUnit millimeterOfMercuryUnit]
       ],
      
      [[SimpleHealthEntryItem alloc]
