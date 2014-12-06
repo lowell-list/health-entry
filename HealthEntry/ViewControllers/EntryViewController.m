@@ -90,9 +90,7 @@
  */
 - (void)handleTapGesture:(UIGestureRecognizer *)gestureRecognizer
 {
-  [self.view endEditing:YES];
-  [self disposeDatePicker];
-  [self disposeTimePicker];
+  [self dismissKeyboardAndPickers];
 }
 
 - (IBAction)onDateButton
@@ -111,9 +109,8 @@
 
 - (IBAction)onRecordButton
 {
-  // remove date/time pickers if either happens to be showing
-  [self disposeDatePicker];
-  [self disposeTimePicker];
+  // cleanup UI first
+  [self dismissKeyboardAndPickers];
   
   // get items with valid user input
   NSArray * vlditmarr = [[HealthEntryItemManager instance] getSelectedItemsWithValidInput];
@@ -330,6 +327,13 @@
 /**************************************************************************/
 #pragma mark INSTANCE METHODS - Utility
 /**************************************************************************/
+
+- (void)dismissKeyboardAndPickers
+{
+  [self.view endEditing:YES];
+  [self disposeDatePicker];
+  [self disposeTimePicker];
+}
 
 - (NSArray *)selectedItems
 {

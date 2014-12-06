@@ -104,7 +104,13 @@
                             <constraint firstAttribute="centerX" secondItem="XYf-d7-u47" secondAttribute="centerX" id="fht-b6-N75"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Data Entry" id="rG8-dO-Pgr"/>
+                    <navigationItem key="navigationItem" title="Data Entry" id="rG8-dO-Pgr">
+                        <barButtonItem key="rightBarButtonItem" title="Record" id="KaZ-Wh-kt1">
+                            <connections>
+                                <action selector="onRecordButton" destination="Ngq-Ec-Ur0" id="pzi-gq-6YD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mDateButton" destination="kC8-b9-oH8" id="Q07-vx-Hmq"/>
                         <outlet property="mTimeButton" destination="qkU-JB-3NN" id="GDH-3N-P7I"/>
