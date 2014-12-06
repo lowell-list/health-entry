@@ -24,8 +24,8 @@
   NSDate *        mEntryDate;
 }
 
-/// UITableView on this ViewController
-@property (nonatomic, weak) IBOutlet UITableView * tableView;
+/// UITableView this ViewController will control
+@property (nonatomic, weak) UITableView * tableView;
 
 @end
 
@@ -68,7 +68,17 @@
   [self disposeTimePicker];
   
   // reload table view data every time this view appears
-  [_tableView reloadData];
+  [self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  // get a reference to the embedded UITableViewController's UITableView
+  self.tableView = ((UITableViewController *)segue.destinationViewController).tableView;
+  
+  // set ourselves to be the delegate and data source
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
 }
 
 /**************************************************************************/
