@@ -73,6 +73,11 @@
   // convert single value to double
   double val = [_userInput doubleValue];
   
+  // deal with percent values as appropriate
+  if([[_dataUnit unitString] isEqualToString:@"%"]) {
+    val = [self clampDouble:(val/100) max:1.0 min:0.0];
+  }
+  
   // create HealthKit quantity object
   HKQuantity *qnt = [HKQuantity quantityWithUnit:_dataUnit doubleValue:val];
   
@@ -98,6 +103,13 @@
   _userInput = textField.text;
   _isInputValid = (_userInput!=nil && _userInput.length>0);
   /**/NSLog(@"set userInput text to [%@] for item %@",_userInput,self);
+}
+
+- (double)clampDouble:(double)value max:(double)max min:(double)min
+{
+  if(value<min) { return min; }
+  if(value>max) { return max; }
+  return value;
 }
 
 /**************************************************************************/
