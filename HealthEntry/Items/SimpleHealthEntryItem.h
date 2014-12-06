@@ -31,8 +31,8 @@
 /**************************************************************************/
 
 /// initializes a SimpleHealthEntryItem
-- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue
-           dataType:(HKQuantityType *)dataType unit:(HKUnit *)unit;
+- (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue
+                dataType:(HKQuantityType *)dataType unit:(HKUnit *)unit;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS

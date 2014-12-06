@@ -23,6 +23,9 @@
   BOOL        _isInputValid;
 }
 
+/// a unique item identifier string
+@property (readonly) NSString * uniqueIdentifier;
+
 /// item description label
 @property (readonly) NSString * label;
 
@@ -43,7 +46,7 @@
 /**************************************************************************/
 
 /// initializes this item (base class data only)
-- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue entryCellReuseId:(NSString *)entryCellReuseId;
+- (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue entryCellReuseId:(NSString *)entryCellReuseId;
 
 /// initializes a new table cell for this item
 - (void)setupTableCell:(UITableViewCell *)cell;

@@ -22,12 +22,12 @@
 
 @implementation DoubleHealthEntryItem
 
-- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue
-    correlationType:(HKCorrelationType *)correlationType
-         dataLabel1:(NSString *)dataLabel1 dataType1:(HKQuantityType *)dataType1 unit1:(HKUnit *)unit1
-         dataLabel2:(NSString *)dataLabel2 dataType2:(HKQuantityType *)dataType2 unit2:(HKUnit *)unit2
+- (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue
+         correlationType:(HKCorrelationType *)correlationType
+              dataLabel1:(NSString *)dataLabel1 dataType1:(HKQuantityType *)dataType1 unit1:(HKUnit *)unit1
+              dataLabel2:(NSString *)dataLabel2 dataType2:(HKQuantityType *)dataType2 unit2:(HKUnit *)unit2
 {
-  self = [super initWithLabel:label sortValue:sortValue entryCellReuseId:@"entryDoubleValueCell"];
+  self = [super initWithIdentifier:identifier label:label sortValue:sortValue entryCellReuseId:@"entryDoubleValueCell"];
   if(self) {
     _rowHeight = 84;
     _correlationType = correlationType;

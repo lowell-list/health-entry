@@ -22,10 +22,10 @@
 
 @implementation SimpleHealthEntryItem
 
-- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue
-           dataType:(HKQuantityType *)dataType unit:(HKUnit *)unit
+- (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue
+                dataType:(HKQuantityType *)dataType unit:(HKUnit *)unit
 {
-  self = [super initWithLabel:label sortValue:sortValue entryCellReuseId:@"entrySingleValueCell"];
+  self = [super initWithIdentifier:identifier label:label sortValue:sortValue entryCellReuseId:@"entrySingleValueCell"];
   if(self) {
     _dataType = dataType;
     _dataUnit = unit;

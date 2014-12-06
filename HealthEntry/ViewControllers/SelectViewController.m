@@ -60,6 +60,9 @@
 
   // set cell label
   [cell textLabel].text = itm.label;
+  
+  // set cell accessory
+  cell.accessoryType = [[HealthEntryItemManager instance] isItemSelected:itm] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

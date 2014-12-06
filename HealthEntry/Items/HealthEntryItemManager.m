@@ -11,6 +11,13 @@
 #import "DoubleHealthEntryItem.h"
 
 /**************************************************************************/
+#pragma mark CONSTANTS
+/**************************************************************************/
+
+// NSUserDefaults keys
+static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
+
+/**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
 
@@ -52,92 +59,102 @@
     [[NSArray alloc] initWithObjects:
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Body Fat Percentage (%)", nil)
+      initWithIdentifier:@"BodyFatPercentage"
+      label:NSLocalizedString(@"Body Fat Percentage (%)", nil)
       sortValue:10
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage]
       unit:[HKUnit percentUnit]
       ],
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Body Mass Index", nil)
+      initWithIdentifier:@"BodyMassIndex"
+      label:NSLocalizedString(@"Body Mass Index", nil)
       sortValue:20
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex]
       unit:[HKUnit countUnit]
       ],
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Weight (lbs)", nil)
+      initWithIdentifier:@"BodyMass"
+      label:NSLocalizedString(@"Weight (lbs)", nil)
       sortValue:30
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
       unit:[HKUnit poundUnit]
       ],
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Blood Glucose (mg/dL)", nil)
+      initWithIdentifier:@"BloodGlucose"
+      label:NSLocalizedString(@"Blood Glucose (mg/dL)", nil)
       sortValue:40
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose]
       unit:[HKUnit unitFromString:@"mg/dL"]
       ],
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Oxygen Saturation (%)", nil)
+      initWithIdentifier:@"OxygenSaturation"
+      label:NSLocalizedString(@"Oxygen Saturation (%)", nil)
       sortValue:50
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation]
       unit:[HKUnit percentUnit]
       ],
      
      [[DoubleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Blood Pressure", nil) sortValue:55
+      initWithIdentifier:@"BloodPressure"
+      label:NSLocalizedString(@"Blood Pressure", nil) sortValue:55
       correlationType:[HKObjectType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]
       dataLabel1:@"Systolic" dataType1:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic] unit1:[HKUnit millimeterOfMercuryUnit]
       dataLabel2:@"Diastolic" dataType2:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic] unit2:[HKUnit millimeterOfMercuryUnit]
       ],
      
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Body Temperature (deg F)", nil)
+      initWithIdentifier:@"BodyTemperature"
+      label:NSLocalizedString(@"Body Temperature (deg F)", nil)
       sortValue:60
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature]
       unit:[HKUnit degreeFahrenheitUnit]
       ],
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Heart Rate (beats / min)", nil)
+      initWithIdentifier:@"HeartRate"
+      label:NSLocalizedString(@"Heart Rate (beats / min)", nil)
       sortValue:70
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]
       unit:[HKUnit unitFromString:@"count/min"]
       ],
      
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Respiratory Rate (count / min)", nil)
+      initWithIdentifier:@"RespiratoryRate"
+      label:NSLocalizedString(@"Respiratory Rate (count / min)", nil)
       sortValue:80
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate]
       unit:[HKUnit unitFromString:@"count/min"]
       ],
 
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Active Calories (cal)", nil)
+      initWithIdentifier:@"ActiveEnergyBurned"
+      label:NSLocalizedString(@"Active Calories (cal)", nil)
       sortValue:90
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
       unit:[HKUnit calorieUnit]
       ],
      
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Cycling Distance (miles)", nil)
+      initWithIdentifier:@"DistanceCycling"
+      label:NSLocalizedString(@"Cycling Distance (miles)", nil)
       sortValue:100
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling]
       unit:[HKUnit mileUnit]
       ],
      
      [[SimpleHealthEntryItem alloc]
-      initWithLabel:NSLocalizedString(@"Walk/Run Distance (miles)", nil)
+      initWithIdentifier:@"DistanceWalkingRunning"
+      label:NSLocalizedString(@"Walk/Run Distance (miles)", nil)
       sortValue:110
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning]
       unit:[HKUnit mileUnit]
       ],
 
      nil];
-
-  /**/NSLog(@"Supported Items: %@",_supportedItems);
 }
 
 /**************************************************************************/
@@ -149,8 +166,8 @@
  */
 - (void)initSelectedItems
 {
-  // TODO: read from storage instead
-  /**/_selectedItems = [[NSMutableArray alloc] init];
+  // load selected items from storage
+  _selectedItems = [self loadSelectedItems];
   
   // ensure selected items array always starts out properly sorted!
   [self sortSelectedItems];
@@ -192,20 +209,64 @@
   [self saveSelectedItems];
 }
 
+- (BOOL)isItemSelected:(HealthEntryItem *)item {
+  if(!_selectedItems) { return NO; }
+  return [_selectedItems containsObject:item];
+}
+
 - (NSArray *)getSelectedItemsWithValidInput
 {
   NSPredicate *prd = [NSPredicate predicateWithFormat:@"isInputValid == YES"];
   return [_selectedItems filteredArrayUsingPredicate:prd];
 }
 
-- (void)loadSelectedItems
+/**
+ * Loads previously saved item selections.
+ * @return A new selected items array; empty if there were no previously saved item selections.
+ */
+- (NSMutableArray *)loadSelectedItems
 {
-  // TODO: load all selected items from storage
+  // create selected items array
+  NSMutableArray *selitmarr = [[NSMutableArray alloc] init];
+
+  // load array of selected item identifier strings (may be nil)
+  NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
+  NSArray *itmidsarr = [usrdft objectForKey:kSelectedHealthEntryItems];
+  
+  // build array of selected items and return
+  if(itmidsarr) {
+    for(NSUInteger xa=0; xa<itmidsarr.count; xa++)
+    {
+      NSString *itmidfstr = (NSString *)[itmidsarr objectAtIndex:xa];                         // item identifier string
+      for(NSUInteger xb=0; xb<_supportedItems.count; xb++)                                    // find corresponding item
+      {
+        HealthEntryItem *itm = ((HealthEntryItem *)[_supportedItems objectAtIndex:xb]);
+        if([itmidfstr isEqualToString:itm.uniqueIdentifier]) {
+          [selitmarr addObject:itm];                                                          // add it to the selected items array
+          break;
+        }
+      }
+    }
+  }
+  return selitmarr;
 }
 
+/**
+ * Saves all current item selections.
+ */
 - (void)saveSelectedItems
 {
-  // TODO: save all selected items to storage
+  // create array of selected item identifier strings
+  NSMutableArray *itmidsarr = [[NSMutableArray alloc] init];
+  for(NSUInteger xa=0; xa<_selectedItems.count; xa++) {
+    HealthEntryItem *itm = ((HealthEntryItem *)[_selectedItems objectAtIndex:xa]);
+    [itmidsarr addObject:itm.uniqueIdentifier];
+  }
+  
+  // save to user defaults
+  NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
+  [usrdft setObject:itmidsarr forKey:kSelectedHealthEntryItems];
+  [usrdft synchronize];
 }
 
 /**************************************************************************/

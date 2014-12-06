@@ -22,10 +22,11 @@
 
 @implementation HealthEntryItem
 
-- (id)initWithLabel:(NSString *)label sortValue:(NSInteger)sortValue entryCellReuseId:(NSString *)entryCellReuseId
+- (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue entryCellReuseId:(NSString *)entryCellReuseId
 {
   self = [super init];
   if(self) {
+    _uniqueIdentifier = identifier;
     _label = label;
     _sortValue = sortValue;
     _entryCellReuseId = entryCellReuseId;
