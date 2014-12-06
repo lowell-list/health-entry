@@ -158,7 +158,7 @@
           if(success) { mWriteSuccessCount++; }
           else        { mWriteFailCount++;    }
           
-          // show message if this is the last item
+          // show message if this is the last item and reload the table
           if((mWriteFailCount+mWriteSuccessCount)==mWriteTotalExpectedCount)
           {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -168,6 +168,7 @@
                                                     cancelButtonTitle:@"OK"
                                                     otherButtonTitles:nil];
               [alert show];
+              [self.tableView reloadData];
             });
           }
         }];
