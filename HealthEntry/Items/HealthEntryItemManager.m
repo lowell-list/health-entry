@@ -179,6 +179,11 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
   _selectedItems = [NSMutableArray arrayWithArray:tmparr];
 }
 
+- (int)countOfSelectedItems
+{
+  return _selectedItems.count;
+}
+
 - (void)selectItem:(HealthEntryItem *)item
 {
   // get NSMutableArray * reference

@@ -26,6 +26,11 @@
 /**************************************************************************/
 
 /**
+ * @return The number of selected items.
+ */
+- (int)countOfSelectedItems;
+
+/**
  * Selects the given item for data entry.
  */
 - (void)selectItem:(HealthEntryItem *)item;

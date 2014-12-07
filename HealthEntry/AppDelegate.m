@@ -10,6 +10,11 @@
 #import "SelectViewController.h"
 #import "EntryViewController.h"
 @import HealthKit;
+#import "HealthEntryItemManager.h"
+
+/**************************************************************************/
+#pragma mark INSTANCE PROPERTIES
+/**************************************************************************/
 
 @interface AppDelegate()
 
@@ -17,31 +22,45 @@
 
 @end
 
+/**************************************************************************/
+#pragma mark INSTANCE METHODS
+/**************************************************************************/
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.healthStore = [[HKHealthStore alloc] init];
-
-    [self setUpHealthStoreForTabBarControllers];
-
-    return YES;
+  self.healthStore = [[HKHealthStore alloc] init];
+  
+  [self setUpHealthStoreForTabBarControllers];
+  [self setInitialTabIndex];
+  
+  return YES;
 }
-
-#pragma mark - Convenience
 
 - (void)setUpHealthStoreForTabBarControllers
 {
-    UITabBarController *tabBarController = (UITabBarController *)[self.window rootViewController];
-
-    for (UINavigationController *navigationController in tabBarController.viewControllers) {
-        id viewController = navigationController.topViewController;
-        
-        if ([viewController respondsToSelector:@selector(setHealthStore:)]) {
-            [viewController setHealthStore:self.healthStore];
-        }
+  UITabBarController *tabBarController = (UITabBarController *)[self.window rootViewController];
+  
+  for(UINavigationController *navigationController in tabBarController.viewControllers) {
+    id viewController = navigationController.topViewController;
+    
+    if ([viewController respondsToSelector:@selector(setHealthStore:)]) {
+      [viewController setHealthStore:self.healthStore];
     }
+  }
 }
+
+- (void)setInitialTabIndex
+{
+  // show Selection Screen if no items are selected, otherwise show Entry Screen
+  UITabBarController *tabBarController = (UITabBarController *)[self.window rootViewController];
+  NSLog(@"thre are %d selected items",[[HealthEntryItemManager instance] countOfSelectedItems]);
+  tabBarController.selectedIndex = ([[HealthEntryItemManager instance] countOfSelectedItems]<=0) ? 0 : 1;
+}
+
+/**************************************************************************/
+#pragma mark CLASS METHODS
+/**************************************************************************/
 
 @end
