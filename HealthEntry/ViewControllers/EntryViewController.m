@@ -69,6 +69,18 @@
   
   // reload table view data every time this view appears
   [self.tableView reloadData];
+  
+  // add UIApplicationWillEnterForegroundNotification observer
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillEnterForeground:)
+                                               name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  
+  // remove UIApplicationWillEnterForegroundNotification observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -79,6 +91,12 @@
   // set ourselves to be the delegate and data source
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
+}
+
+- (void)onApplicationWillEnterForeground:(NSNotification *)notification
+{
+  // reset date/time to now
+  [self updateEntryDate:[NSDate date]];
 }
 
 /**************************************************************************/
