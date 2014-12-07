@@ -104,7 +104,6 @@
 {
   _userInput = textField.text;
   _isInputValid = (_userInput!=nil && _userInput.length>0);
-  /**/NSLog(@"set userInput text to [%@] for item %@",_userInput,self);
 }
 
 - (double)clampDouble:(double)value max:(double)max min:(double)min

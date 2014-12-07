@@ -55,7 +55,6 @@
 {
   // show Selection Screen if no items are selected, otherwise show Entry Screen
   UITabBarController *tabBarController = (UITabBarController *)[self.window rootViewController];
-  NSLog(@"thre are %d selected items",[[HealthEntryItemManager instance] countOfSelectedItems]);
   tabBarController.selectedIndex = ([[HealthEntryItemManager instance] countOfSelectedItems]<=0) ? 0 : 1;
 }
 

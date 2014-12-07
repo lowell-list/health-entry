@@ -132,7 +132,6 @@
   
   // get items with valid user input
   NSArray * vlditmarr = [[HealthEntryItemManager instance] getSelectedItemsWithValidInput];
-  /**/NSLog(@"Valid item array: %@",vlditmarr);
   
   // if no valid items, cannot continue!
   if(vlditmarr.count==0) {
@@ -147,7 +146,6 @@
   
   // get set of HKSampleType objects
   NSSet * smptypset = [HealthEntryItemManager getDataTypesSetFromItems:vlditmarr];
-  /**/NSLog(@"set of types: %@",smptypset);
   
   // request permissions for all types we want to write
   if([HKHealthStore isHealthDataAvailable])
