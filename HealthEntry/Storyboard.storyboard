@@ -242,7 +242,7 @@
         <scene sceneID="oEl-2U-Ihb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MDa-JJ-dPR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Entry" image="icon_journal" id="uK7-K1-7H4"/>
+                    <tabBarItem key="tabBarItem" title="Entry" image="icon_pencil" id="uK7-K1-7H4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qhv-BO-w4Z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -261,7 +261,7 @@
         <scene sceneID="zJH-U8-hkZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WpR-zI-EVT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Select" image="icon_profile" id="RNJ-5k-3hQ"/>
+                    <tabBarItem key="tabBarItem" title="Select" image="icon_checkmark" id="RNJ-5k-3hQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m4F-X2-e2B">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -278,8 +278,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_journal" width="27" height="25"/>
-        <image name="icon_profile" width="25" height="25"/>
+        <image name="icon_checkmark" width="25" height="25"/>
+        <image name="icon_pencil" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
