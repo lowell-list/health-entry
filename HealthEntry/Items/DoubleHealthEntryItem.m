@@ -115,6 +115,8 @@
     // report write status
     if(success) { NSLog(@"success for item %@",self);                                             }
     else        { NSLog(@"An error occured saving the item %@. The error was: %@.", self, error); }
+    // clear user inputs on success
+    if(success) { _userInput1 = @""; _userInput2 = @""; _isInputValid=NO; }
     // call onDone handler
     onDone(success);
   }];
