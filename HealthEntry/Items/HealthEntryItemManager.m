@@ -132,10 +132,10 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"ActiveEnergyBurned"
-      label:NSLocalizedString(@"Active Calories (cal)", nil)
+      label:NSLocalizedString(@"Active Calories (kcal)", nil)
       sortValue:90
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
-      unit:[HKUnit calorieUnit]
+      unit:[HKUnit kilocalorieUnit]
       ],
      
      [[SimpleHealthEntryItem alloc]
