@@ -1,0 +1,38 @@
+Metadata Rejected
+Apple
+Dec 19, 2014 04:52 PM
+
+Reasons
+
+8.1: Apps must comply with all terms and conditions explained in the Guidelines for Using Apple Trademarks and Copyrights and the Apple Trademark List
+----- 8.1 -----
+
+We found that your app does not comply with the Guidelines for Using Apple's Trademarks and Copyrights, as required by the App Store Review Guidelines.
+
+Specifically, your app includes inappropriate uses of "HealthKit" in the name.
+
+For your convenience, we've provided the relevant section/s of the Guidelines for Using Apple's Trademarks and Copyrights.
+
+Product Names Guidelines
+
+You may use Apple, iPhone, or any other Apple word mark (but not the Apple Logo or other Apple-owned graphic symbol/logo) in a referential phrase on packaging or promotional/advertising materials to describe that the third party product is compatible with the referenced Apple product or technology, provided they comply with the following requirements.
+
+a. The Apple word mark is not part of the product name.
+b. The Apple word mark is used in a referential phrase such as "runs on," "for use with," "for," or "compatible with."
+c. The Apple word mark appears less prominent than the product name.
+d. The product is in fact compatible with, or otherwise works with, the referenced Apple product.
+e. The reference to Apple does not create a sense of endorsement, sponsorship, or false association with Apple or Apple products or services.
+f. The use does not show Apple or its products in a false or derogatory light.
+
+In other words, whether appearing on the application itself and/or in marketing materials, the word iPhone may be used as a descriptor, but not as part of the product name.
+
+For example, the following are acceptable:
+GreatApp - with tagline "for HealthKit"
+GreatApp - with tagline "HealthKit edition"
+GreatApp - with tagline "HealthKit version"
+
+
+The following are not acceptable:
+HealthKit GreatApp
+HealthKitGreatApp
+GreatHealthKitApp
