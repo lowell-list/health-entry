@@ -60,10 +60,10 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"BodyFatPercentage"
-      label:NSLocalizedString(@"Body Fat Percentage (%)", nil)
+      label:NSLocalizedString(@"Body Fat Percentage", nil)
       sortValue:10
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage]
-      unit:[HKUnit percentUnit]
+      units:[NSArray arrayWithObjects:[HKUnit percentUnit], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
@@ -71,31 +71,31 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
       label:NSLocalizedString(@"Body Mass Index", nil)
       sortValue:20
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex]
-      unit:[HKUnit countUnit]
+      units:[NSArray arrayWithObjects:[HKUnit countUnit], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"BodyMass"
-      label:NSLocalizedString(@"Weight (lbs)", nil)
+      label:NSLocalizedString(@"Weight", nil)
       sortValue:30
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
-      unit:[HKUnit poundUnit]
+      units:[NSArray arrayWithObjects:[HKUnit poundUnit], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"BloodGlucose"
-      label:NSLocalizedString(@"Blood Glucose (mg/dL)", nil)
+      label:NSLocalizedString(@"Blood Glucose", nil)
       sortValue:40
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose]
-      unit:[HKUnit unitFromString:@"mg/dL"]
+      units:[NSArray arrayWithObjects:[HKUnit unitFromString:@"mg/dL"], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"OxygenSaturation"
-      label:NSLocalizedString(@"Oxygen Saturation (%)", nil)
+      label:NSLocalizedString(@"Oxygen Saturation", nil)
       sortValue:50
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation]
-      unit:[HKUnit percentUnit]
+      units:[NSArray arrayWithObjects:[HKUnit percentUnit], nil]
       ],
      
      [[DoubleHealthEntryItem alloc]
@@ -108,50 +108,50 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
      
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"BodyTemperature"
-      label:NSLocalizedString(@"Body Temperature (deg F)", nil)
+      label:NSLocalizedString(@"Body Temperature", nil)
       sortValue:60
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature]
-      unit:[HKUnit degreeFahrenheitUnit]
+      units:[NSArray arrayWithObjects:[HKUnit degreeFahrenheitUnit], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"HeartRate"
-      label:NSLocalizedString(@"Heart Rate (beats / min)", nil)
+      label:NSLocalizedString(@"Heart Rate", nil)
       sortValue:70
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]
-      unit:[HKUnit unitFromString:@"count/min"]
+      units:[NSArray arrayWithObjects:[HKUnit unitFromString:@"count/min"], nil]
       ],
      
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"RespiratoryRate"
-      label:NSLocalizedString(@"Respiratory Rate (count / min)", nil)
+      label:NSLocalizedString(@"Respiratory Rate", nil)
       sortValue:80
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate]
-      unit:[HKUnit unitFromString:@"count/min"]
+      units:[NSArray arrayWithObjects:[HKUnit unitFromString:@"count/min"], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"ActiveEnergyBurned"
-      label:NSLocalizedString(@"Active Calories (kcal)", nil)
+      label:NSLocalizedString(@"Active Calories", nil)
       sortValue:90
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned]
-      unit:[HKUnit kilocalorieUnit]
+      units:[NSArray arrayWithObjects:[HKUnit kilocalorieUnit], nil]
       ],
      
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"DistanceCycling"
-      label:NSLocalizedString(@"Cycling Distance (miles)", nil)
+      label:NSLocalizedString(@"Cycling Distance", nil)
       sortValue:100
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling]
-      unit:[HKUnit mileUnit]
+      units:[NSArray arrayWithObjects:[HKUnit mileUnit], nil]
       ],
      
      [[SimpleHealthEntryItem alloc]
       initWithIdentifier:@"DistanceWalkingRunning"
-      label:NSLocalizedString(@"Walk/Run Distance (miles)", nil)
+      label:NSLocalizedString(@"Walk/Run Distance", nil)
       sortValue:110
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning]
-      unit:[HKUnit mileUnit]
+      units:[NSArray arrayWithObjects:[HKUnit mileUnit], nil]
       ],
 
      nil];

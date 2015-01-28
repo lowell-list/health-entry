@@ -23,12 +23,13 @@
 @implementation SimpleHealthEntryItem
 
 - (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue
-                dataType:(HKQuantityType *)dataType unit:(HKUnit *)unit
+                dataType:(HKQuantityType *)dataType units:(NSArray *)units
 {
   self = [super initWithIdentifier:identifier label:label sortValue:sortValue entryCellReuseId:@"entrySingleValueCell"];
   if(self) {
     _dataType = dataType;
-    _dataUnit = unit;
+    _dataUnits = units;
+    _selectedDataUnit = [units objectAtIndex:0]; // assume there is always at least one unit
     _userInput = @"";
   }
   return self;
@@ -57,7 +58,7 @@
 {
   // set primary label text
   UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:_label];
+  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[_selectedDataUnit unitString]]];
   
   // set textfield text
   UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
@@ -74,12 +75,12 @@
   double val = [_userInput doubleValue];
   
   // deal with percent values as appropriate
-  if([[_dataUnit unitString] isEqualToString:@"%"]) {
+  if([[_selectedDataUnit unitString] isEqualToString:@"%"]) {
     val = [self clampDouble:(val/100) max:1.0 min:0.0];
   }
   
   // create HealthKit quantity object
-  HKQuantity *qnt = [HKQuantity quantityWithUnit:_dataUnit doubleValue:val];
+  HKQuantity *qnt = [HKQuantity quantityWithUnit:_selectedDataUnit doubleValue:val];
   
   // create HealthKit quantity sample object
   HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:_dataType quantity:qnt startDate:entryDate endDate:entryDate];
