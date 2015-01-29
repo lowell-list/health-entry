@@ -8,6 +8,7 @@
 
 #import "SelectViewController.h"
 #import "HealthEntryItemManager.h"
+#import "SimpleHealthEntryItem.h" /**/
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
@@ -59,10 +60,19 @@
   HealthEntryItem *itm = [_supportedItems objectAtIndex:[indexPath row]];
 
   // set cell label
-  [cell textLabel].text = itm.label;
+  /**/
+  UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
+  if([itm isMemberOfClass:[SimpleHealthEntryItem class]]) {
+    SimpleHealthEntryItem *smpitm = (SimpleHealthEntryItem *)itm;
+    txtfld.text = [NSString stringWithFormat:@"%@ (%@)",smpitm.label,[smpitm.selectedDataUnit unitString]];
+  }
+  else {
+    txtfld.text = itm.label;
+  }
   
-  // set cell accessory
-  cell.accessoryType = [[HealthEntryItemManager instance] isItemSelected:itm] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+  // set initial checkmark state
+  BOOL slt = [[HealthEntryItemManager instance] isItemSelected:itm];
+  [self setCheckmark:slt forCell:cell inTable:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,16 +82,29 @@
 
   // UI deselect
   [tableView deselectRowAtIndexPath:indexPath animated:NO];
-
+  
   // toggle checkmark; select/deselect item
   UITableViewCell *cll = [tableView cellForRowAtIndexPath:indexPath];
-  if(cll.accessoryType == UITableViewCellAccessoryCheckmark) {
-    cll.accessoryType = UITableViewCellAccessoryNone;
+  if([[HealthEntryItemManager instance] isItemSelected:itm]) {
+    [self setCheckmark:NO forCell:cll inTable:tableView];
     [[HealthEntryItemManager instance] unselectItem:itm];
   }
   else {
-    cll.accessoryType = UITableViewCellAccessoryCheckmark;
+    [self setCheckmark:YES forCell:cll inTable:tableView];
     [[HealthEntryItemManager instance] selectItem:itm];
+  }
+}
+
+- (void)setCheckmark:(BOOL)checked forCell:(UITableViewCell *)cell inTable:(UITableView *)table
+{
+  UIImageView *imgvue = (UIImageView *)[cell viewWithTag:100];
+  if(checked) {
+    imgvue.image = [UIImage imageNamed:@"icon_checkmark"];
+    imgvue.image = [imgvue.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    imgvue.tintColor = table.tintColor;
+  }
+  else {
+    imgvue.image = nil;
   }
 }
 
