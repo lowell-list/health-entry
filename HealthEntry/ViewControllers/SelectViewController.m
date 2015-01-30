@@ -60,14 +60,28 @@
   HealthEntryItem *itm = [_supportedItems objectAtIndex:[indexPath row]];
 
   // set cell label
-  /**/
   UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
+  txtfld.text = itm.label;
+
+  UIButton *btn = (UIButton *)[cell viewWithTag:300];
   if([itm isMemberOfClass:[SimpleHealthEntryItem class]]) {
     SimpleHealthEntryItem *smpitm = (SimpleHealthEntryItem *)itm;
-    txtfld.text = [NSString stringWithFormat:@"%@ (%@)",smpitm.label,[smpitm.selectedDataUnit unitString]];
+    
+    // set unit button label
+    btn.titleLabel.minimumScaleFactor = 0.5;
+    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+    [btn setTitle:[smpitm.selectedDataUnit unitString] forState:UIControlStateNormal];
+    btn.enabled = (smpitm.dataUnits.count > 1);
+    
+    // set unit button handler
+    [btn removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+    if(btn.enabled) {
+      [btn addTarget:self action:@selector(onUnitModificationButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
   }
   else {
-    txtfld.text = itm.label;
+    [btn setTitle:@"" forState:UIControlStateNormal];
+    btn.enabled = NO;
   }
   
   // set initial checkmark state
@@ -125,6 +139,14 @@
   return [tableView dequeueReusableCellWithIdentifier:@"selectSimpleCell" forIndexPath:indexPath];
 }
 
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - Unit Modification Buttons
+/**************************************************************************/
+
+- (void)onUnitModificationButton:(id)sender
+{
+  NSLog(@"unit modification button pressed: %@",sender);
+}
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/

@@ -111,7 +111,7 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
       label:NSLocalizedString(@"Body Temperature", nil)
       sortValue:60
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature]
-      units:[NSArray arrayWithObjects:[HKUnit degreeFahrenheitUnit], nil]
+      units:[NSArray arrayWithObjects:[HKUnit degreeFahrenheitUnit], [HKUnit degreeCelsiusUnit], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]
