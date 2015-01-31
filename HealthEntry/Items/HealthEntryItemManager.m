@@ -79,7 +79,7 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
       label:NSLocalizedString(@"Weight", nil)
       sortValue:30
       dataType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
-      units:[NSArray arrayWithObjects:[HKUnit poundUnit], nil]
+      units:[NSArray arrayWithObjects:[HKUnit poundUnit], [HKUnit unitFromString:@"kg"], [HKUnit stoneUnit], nil]
       ],
 
      [[SimpleHealthEntryItem alloc]

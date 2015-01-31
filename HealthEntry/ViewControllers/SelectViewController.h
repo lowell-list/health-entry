@@ -9,7 +9,7 @@
 @import UIKit;
 @import HealthKit;
 
-@interface SelectViewController : UITableViewController
+@interface SelectViewController : UITableViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES

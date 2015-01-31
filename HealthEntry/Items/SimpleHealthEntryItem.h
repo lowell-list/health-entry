@@ -24,7 +24,7 @@
 @property (readonly) NSArray * dataUnits;
 
 /// selected unit
-@property (readonly) HKUnit * selectedDataUnit;
+@property (readwrite) HKUnit * selectedDataUnit;
 
 /// The quantity string that the user entered for this item
 @property (readonly,copy) NSString * userInput;

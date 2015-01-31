@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40B6D3A1A7CA5B100D16334 /* UnitSelectTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = C40B6D381A7CA5B100D16334 /* UnitSelectTextField.h */; };
+		C40B6D3B1A7CA5B100D16334 /* UnitSelectTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B6D391A7CA5B100D16334 /* UnitSelectTextField.m */; };
 		C40F9F201A26E4E60039535A /* SimpleHealthEntryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C40F9F1E1A26E4E60039535A /* SimpleHealthEntryItem.h */; };
 		C40F9F211A26E4E60039535A /* SimpleHealthEntryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C40F9F1F1A26E4E60039535A /* SimpleHealthEntryItem.m */; };
 		C416FC6A1A22E8C200655AF6 /* HealthEntryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C416FC631A22E8C200655AF6 /* HealthEntryItem.h */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		4ED4B7F519283674002C7E33 /* HealthEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C40B6D381A7CA5B100D16334 /* UnitSelectTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSelectTextField.h; sourceTree = "<group>"; };
+		C40B6D391A7CA5B100D16334 /* UnitSelectTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSelectTextField.m; sourceTree = "<group>"; };
 		C40F9F1E1A26E4E60039535A /* SimpleHealthEntryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleHealthEntryItem.h; sourceTree = "<group>"; };
 		C40F9F1F1A26E4E60039535A /* SimpleHealthEntryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleHealthEntryItem.m; sourceTree = "<group>"; };
 		C416FC631A22E8C200655AF6 /* HealthEntryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthEntryItem.h; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 			children = (
 				C416FC681A22E8C200655AF6 /* Template.h */,
 				C416FC691A22E8C200655AF6 /* Template.m */,
+				C40B6D381A7CA5B100D16334 /* UnitSelectTextField.h */,
+				C40B6D391A7CA5B100D16334 /* UnitSelectTextField.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -143,6 +149,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40B6D3A1A7CA5B100D16334 /* UnitSelectTextField.h in Headers */,
 				C416FC6C1A22E8C200655AF6 /* HealthEntryItemManager.h in Headers */,
 				C4BD086A19F32B38000F50BA /* EntryViewController.h in Headers */,
 				C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */,
@@ -251,6 +258,7 @@
 				C4BD086D19F32B38000F50BA /* SelectViewController.m in Sources */,
 				C497A4D51A29494900D86BA4 /* DoubleHealthEntryItem.m in Sources */,
 				C416FC6D1A22E8C200655AF6 /* HealthEntryItemManager.m in Sources */,
+				C40B6D3B1A7CA5B100D16334 /* UnitSelectTextField.m in Sources */,
 				C4BD086819F32B38000F50BA /* main.m in Sources */,
 				C40F9F211A26E4E60039535A /* SimpleHealthEntryItem.m in Sources */,
 				C416FC6B1A22E8C200655AF6 /* HealthEntryItem.m in Sources */,

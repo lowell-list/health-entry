@@ -8,14 +8,20 @@
 
 #import "SelectViewController.h"
 #import "HealthEntryItemManager.h"
-#import "SimpleHealthEntryItem.h" /**/
+#import "SimpleHealthEntryItem.h"
+#import "UnitSelectTextField.h"
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
 
 @interface SelectViewController()
-
+{
+@private
+  UIPickerView *            mPicker;
+  UnitSelectTextField *     mSelectedTextField;
+  SimpleHealthEntryItem *   mSelectedItem;
+}
 /// An array of all supported items.
 @property (nonatomic) NSArray * supportedItems;
 
@@ -40,6 +46,8 @@
   [super viewDidLoad];
 
   _supportedItems = [HealthEntryItemManager instance].supportedItems;
+  [self initPickerView];
+  mSelectedItem = nil;
 }
 
 /**************************************************************************/
@@ -59,29 +67,37 @@
   // lookup corresponding item
   HealthEntryItem *itm = [_supportedItems objectAtIndex:[indexPath row]];
 
-  // set cell label
-  UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
-  txtfld.text = itm.label;
+  // set label text
+  UILabel *lbl = (UILabel *)[cell viewWithTag:200];
+  lbl.text = itm.label;
 
-  UIButton *btn = (UIButton *)[cell viewWithTag:300];
-  if([itm isMemberOfClass:[SimpleHealthEntryItem class]]) {
+  // set and prepare unit text field
+  UnitSelectTextField *unttxtfld = (UnitSelectTextField *)[cell viewWithTag:300];
+  if([itm isMemberOfClass:[SimpleHealthEntryItem class]])
+  {
+    // get current item as a SimpleHealthEntryItem
     SimpleHealthEntryItem *smpitm = (SimpleHealthEntryItem *)itm;
     
-    // set unit button label
-    btn.titleLabel.minimumScaleFactor = 0.5;
-    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-    [btn setTitle:[smpitm.selectedDataUnit unitString] forState:UIControlStateNormal];
-    btn.enabled = (smpitm.dataUnits.count > 1);
-    
-    // set unit button handler
-    [btn removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-    if(btn.enabled) {
-      [btn addTarget:self action:@selector(onUnitModificationButton:) forControlEvents:UIControlEventTouchUpInside];
+    // setup unit text field
+    unttxtfld.text = [smpitm.selectedDataUnit unitString];
+    NSLog(@"setting up text field for %@, set value to %@",smpitm.label, unttxtfld.text);
+    unttxtfld.enabled = (smpitm.dataUnits.count > 1);
+    if(unttxtfld.enabled) {
+      unttxtfld.inputView = unttxtfld.enabled ? mPicker : nil;        // the picker view will display when this text field is edited
+      unttxtfld.delegate = self;                                      // this UIViewController is the delegate
+      unttxtfld.textColor = tableView.tintColor;
+      unttxtfld.itemIndex = [indexPath row];                          // associate the current row index with this text field
+    }
+    else {
+      unttxtfld.inputView = nil;
+      unttxtfld.delegate = nil;
+      unttxtfld.textColor = [UIColor blackColor];
     }
   }
   else {
-    [btn setTitle:@"" forState:UIControlStateNormal];
-    btn.enabled = NO;
+    unttxtfld.text = @"";                                             // text field is unused for other
+    unttxtfld.enabled = NO;
+    unttxtfld.delegate = nil;
   }
   
   // set initial checkmark state
@@ -140,13 +156,74 @@
 }
 
 /**************************************************************************/
-#pragma mark INSTANCE METHODS - Unit Modification Buttons
+#pragma mark INSTANCE METHODS - UITextFieldDelegate
 /**************************************************************************/
 
-- (void)onUnitModificationButton:(id)sender
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-  NSLog(@"unit modification button pressed: %@",sender);
+  // save selected text field
+  mSelectedTextField = (UnitSelectTextField *)textField;
+
+  // determine selected item
+  mSelectedItem = [_supportedItems objectAtIndex:mSelectedTextField.itemIndex];
+  
+  // cause picker view to reload all
+  [mPicker reloadAllComponents];
+
+  return YES; // YES to allow editing, NO to disallow
 }
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UIPickerView Delegate / Data Source for unit selection
+/**************************************************************************/
+
+- (void)initPickerView
+{
+  if(mPicker) { return; } // already initialized!
+  
+  mPicker = [[UIPickerView alloc] init];
+  mPicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  mPicker.backgroundColor = [UIColor whiteColor];
+  mPicker.delegate = self;
+  mPicker.dataSource = self;
+}
+
+// returns the number of columns to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+  return 1;
+}
+
+// returns the number of rows in each component.
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+  if(!mSelectedItem) { return 1; }
+  return mSelectedItem.dataUnits.count;
+}
+
+// returns the text to be displayed on each row of the picker
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+  if(!mSelectedItem) { return @""; }
+  HKUnit *unt = [mSelectedItem.dataUnits objectAtIndex:row];
+  return unt.unitString;
+}
+
+// called when the user selects a row of the picker view
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+  if(mSelectedItem && mSelectedTextField) {
+    HKUnit *unt = [mSelectedItem.dataUnits objectAtIndex:row];
+    mSelectedItem.selectedDataUnit = unt;
+    mSelectedTextField.text = unt.unitString;
+  }
+  
+  // dismiss picker view
+  [mSelectedTextField resignFirstResponder];
+  mSelectedTextField = nil;
+  mSelectedItem = nil;
+}
+
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/
