@@ -9,23 +9,24 @@
 #import "SimpleHealthEntryItem.h"
 #import "Util.h"
 
+@interface SimpleHealthEntryItem()
+
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
-
-@interface SimpleHealthEntryItem()
 {
 @private
-  HKUnit *                  mSelectedDataUnit;
-  NSInteger                 mSelectedDataUnitIndex;
 }
+
 @end
+
+@implementation SimpleHealthEntryItem
+
+@synthesize selectedDataUnitIndex = _selectedDataUnitIndex;
 
 /**************************************************************************/
 #pragma mark INSTANCE INIT / DEALLOC
 /**************************************************************************/
-
-@implementation SimpleHealthEntryItem
 
 - (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue
                 dataType:(HKQuantityType *)dataType units:(NSArray *)units
@@ -35,7 +36,7 @@
     _dataType = dataType;
     _dataUnits = units;
     _userInput = @"";
-    [self setSelectedDataUnitIndex:0];
+    self.selectedDataUnitIndex = 0;
   }
   return self;
 }
@@ -50,18 +51,13 @@
 
 - (void)setSelectedDataUnitIndex:(NSInteger)index
 {
-  mSelectedDataUnitIndex = [Util clampNSInteger:index max:_dataUnits.count-1 min:0];
-  mSelectedDataUnit = [_dataUnits objectAtIndex:mSelectedDataUnitIndex];
+  _selectedDataUnitIndex = [Util clampNSInteger:index max:_dataUnits.count-1 min:0];
+  _selectedDataUnit = [_dataUnits objectAtIndex:_selectedDataUnitIndex];
 }
 
 - (NSInteger)selectedDataUnitIndex
 {
-  return mSelectedDataUnitIndex;
-}
-
-- (HKUnit *)selectedDataUnit
-{
-  return mSelectedDataUnit;
+  return _selectedDataUnitIndex;
 }
 
 /**************************************************************************/
@@ -83,7 +79,7 @@
 {
   // set primary label text
   UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[mSelectedDataUnit unitString]]];
+  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[self.selectedDataUnit unitString]]];
   
   // set textfield text
   UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
@@ -100,12 +96,12 @@
   double val = [_userInput doubleValue];
   
   // deal with percent values as appropriate
-  if([[mSelectedDataUnit unitString] isEqualToString:@"%"]) {
+  if([[self.selectedDataUnit unitString] isEqualToString:@"%"]) {
     val = [Util clampDouble:(val/100) max:1.0 min:0.0];
   }
   
   // create HealthKit quantity object
-  HKQuantity *qnt = [HKQuantity quantityWithUnit:mSelectedDataUnit doubleValue:val];
+  HKQuantity *qnt = [HKQuantity quantityWithUnit:self.selectedDataUnit doubleValue:val];
   
   // create HealthKit quantity sample object
   HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:_dataType quantity:qnt startDate:entryDate endDate:entryDate];

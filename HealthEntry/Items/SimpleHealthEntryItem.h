@@ -23,6 +23,12 @@
 /// valid units that can describe the data type
 @property (readonly) NSArray * dataUnits;
 
+/// selected unit
+@property (readonly) HKUnit * selectedDataUnit;
+
+/// selected unit index
+@property (readwrite) NSInteger selectedDataUnitIndex;
+
 /// The quantity string that the user entered for this item
 @property (readonly,copy) NSString * userInput;
 
@@ -33,15 +39,6 @@
 /// initializes a SimpleHealthEntryItem
 - (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label sortValue:(NSInteger)sortValue
                 dataType:(HKQuantityType *)dataType units:(NSArray *)units;
-
-/// sets the currently selected data unit index
-- (void)setSelectedDataUnitIndex:(NSInteger)index;
-
-/// gets the currently selected data unit index
-- (NSInteger)selectedDataUnitIndex;
-
-/// returns the currently selected data unit
-- (HKUnit *)selectedDataUnit;
 
 /**************************************************************************/
 #pragma mark CLASS METHODS

@@ -214,7 +214,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
   if(mSelectedItem && mSelectedTextField) {
-    [mSelectedItem setSelectedDataUnitIndex:row];
+    mSelectedItem.selectedDataUnitIndex = row;
     mSelectedTextField.text = mSelectedItem.selectedDataUnit.unitString;
   }
   
