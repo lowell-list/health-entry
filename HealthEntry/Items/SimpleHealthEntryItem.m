@@ -7,13 +7,18 @@
 //
 
 #import "SimpleHealthEntryItem.h"
+#import "Util.h"
 
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
 
 @interface SimpleHealthEntryItem()
-
+{
+@private
+  HKUnit *                  mSelectedDataUnit;
+  NSInteger                 mSelectedDataUnitIndex;
+}
 @end
 
 /**************************************************************************/
@@ -29,14 +34,34 @@
   if(self) {
     _dataType = dataType;
     _dataUnits = units;
-    _selectedDataUnit = [units objectAtIndex:0]; // assume there is always at least one unit
     _userInput = @"";
+    [self setSelectedDataUnitIndex:0];
   }
   return self;
 }
 
 - (void)dealloc
 {
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UNIT SELECTION
+/**************************************************************************/
+
+- (void)setSelectedDataUnitIndex:(NSInteger)index
+{
+  mSelectedDataUnitIndex = [Util clampNSInteger:index max:_dataUnits.count-1 min:0];
+  mSelectedDataUnit = [_dataUnits objectAtIndex:mSelectedDataUnitIndex];
+}
+
+- (NSInteger)selectedDataUnitIndex
+{
+  return mSelectedDataUnitIndex;
+}
+
+- (HKUnit *)selectedDataUnit
+{
+  return mSelectedDataUnit;
 }
 
 /**************************************************************************/
@@ -58,7 +83,7 @@
 {
   // set primary label text
   UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[_selectedDataUnit unitString]]];
+  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[mSelectedDataUnit unitString]]];
   
   // set textfield text
   UITextField *txtfld = (UITextField *)[cell viewWithTag:200];
@@ -75,12 +100,12 @@
   double val = [_userInput doubleValue];
   
   // deal with percent values as appropriate
-  if([[_selectedDataUnit unitString] isEqualToString:@"%"]) {
-    val = [self clampDouble:(val/100) max:1.0 min:0.0];
+  if([[mSelectedDataUnit unitString] isEqualToString:@"%"]) {
+    val = [Util clampDouble:(val/100) max:1.0 min:0.0];
   }
   
   // create HealthKit quantity object
-  HKQuantity *qnt = [HKQuantity quantityWithUnit:_selectedDataUnit doubleValue:val];
+  HKQuantity *qnt = [HKQuantity quantityWithUnit:mSelectedDataUnit doubleValue:val];
   
   // create HealthKit quantity sample object
   HKQuantitySample *qntsmp = [HKQuantitySample quantitySampleWithType:_dataType quantity:qnt startDate:entryDate endDate:entryDate];
@@ -105,13 +130,6 @@
 {
   _userInput = textField.text;
   _isInputValid = (_userInput!=nil && _userInput.length>0);
-}
-
-- (double)clampDouble:(double)value max:(double)max min:(double)min
-{
-  if(value<min) { return min; }
-  if(value>max) { return max; }
-  return value;
 }
 
 /**************************************************************************/

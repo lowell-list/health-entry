@@ -80,14 +80,14 @@
     
     // setup unit text field
     unttxtfld.text = [smpitm.selectedDataUnit unitString];
-    NSLog(@"setting up text field for %@, set value to %@",smpitm.label, unttxtfld.text);
+    /**/NSLog(@"setting up text field for %@, set value to %@",smpitm.label, unttxtfld.text);
     unttxtfld.enabled = (smpitm.dataUnits.count > 1);
     if(unttxtfld.enabled) {
       unttxtfld.inputView = unttxtfld.enabled ? mPicker : nil;        // the picker view will display when this text field is edited
       unttxtfld.delegate = self;                                      // this UIViewController is the delegate
       unttxtfld.textColor = tableView.tintColor;
-      unttxtfld.itemIndex = [indexPath row];                          // associate the current row index with this text field
-    }
+      unttxtfld.itemIndex = [indexPath row];                          // associate the current row index with this text field;
+    }                                                                 // this is the index of the item in the _supportedItems array
     else {
       unttxtfld.inputView = nil;
       unttxtfld.delegate = nil;
@@ -167,8 +167,9 @@
   // determine selected item
   mSelectedItem = [_supportedItems objectAtIndex:mSelectedTextField.itemIndex];
   
-  // cause picker view to reload all
+  // reload picker view, set selected row
   [mPicker reloadAllComponents];
+  [mPicker selectRow:mSelectedItem.selectedDataUnitIndex inComponent:0 animated:NO];
 
   return YES; // YES to allow editing, NO to disallow
 }
@@ -213,9 +214,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
   if(mSelectedItem && mSelectedTextField) {
-    HKUnit *unt = [mSelectedItem.dataUnits objectAtIndex:row];
-    mSelectedItem.selectedDataUnit = unt;
-    mSelectedTextField.text = unt.unitString;
+    [mSelectedItem setSelectedDataUnitIndex:row];
+    mSelectedTextField.text = mSelectedItem.selectedDataUnit.unitString;
   }
   
   // dismiss picker view

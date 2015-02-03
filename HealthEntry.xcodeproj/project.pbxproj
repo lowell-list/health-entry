@@ -17,6 +17,8 @@
 		C416FC6D1A22E8C200655AF6 /* HealthEntryItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C416FC661A22E8C200655AF6 /* HealthEntryItemManager.m */; };
 		C416FC6E1A22E8C200655AF6 /* Template.h in Headers */ = {isa = PBXBuildFile; fileRef = C416FC681A22E8C200655AF6 /* Template.h */; };
 		C416FC6F1A22E8C200655AF6 /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = C416FC691A22E8C200655AF6 /* Template.m */; };
+		C47B8D241A81339000EC9A7A /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C47B8D221A81339000EC9A7A /* Util.h */; };
+		C47B8D251A81339000EC9A7A /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = C47B8D231A81339000EC9A7A /* Util.m */; };
 		C497A4D41A29494900D86BA4 /* DoubleHealthEntryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C497A4D21A29494900D86BA4 /* DoubleHealthEntryItem.h */; };
 		C497A4D51A29494900D86BA4 /* DoubleHealthEntryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C497A4D31A29494900D86BA4 /* DoubleHealthEntryItem.m */; };
 		C4BD086219F32B38000F50BA /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD085419F32B38000F50BA /* AppDelegate.h */; };
@@ -44,6 +46,8 @@
 		C416FC661A22E8C200655AF6 /* HealthEntryItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthEntryItemManager.m; sourceTree = "<group>"; };
 		C416FC681A22E8C200655AF6 /* Template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 		C416FC691A22E8C200655AF6 /* Template.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
+		C47B8D221A81339000EC9A7A /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		C47B8D231A81339000EC9A7A /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		C497A4D21A29494900D86BA4 /* DoubleHealthEntryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleHealthEntryItem.h; sourceTree = "<group>"; };
 		C497A4D31A29494900D86BA4 /* DoubleHealthEntryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleHealthEntryItem.m; sourceTree = "<group>"; };
 		C4BD085419F32B38000F50BA /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				C416FC691A22E8C200655AF6 /* Template.m */,
 				C40B6D381A7CA5B100D16334 /* UnitSelectTextField.h */,
 				C40B6D391A7CA5B100D16334 /* UnitSelectTextField.m */,
+				C47B8D221A81339000EC9A7A /* Util.h */,
+				C47B8D231A81339000EC9A7A /* Util.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -149,6 +155,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47B8D241A81339000EC9A7A /* Util.h in Headers */,
 				C40B6D3A1A7CA5B100D16334 /* UnitSelectTextField.h in Headers */,
 				C416FC6C1A22E8C200655AF6 /* HealthEntryItemManager.h in Headers */,
 				C4BD086A19F32B38000F50BA /* EntryViewController.h in Headers */,
@@ -263,6 +270,7 @@
 				C40F9F211A26E4E60039535A /* SimpleHealthEntryItem.m in Sources */,
 				C416FC6B1A22E8C200655AF6 /* HealthEntryItem.m in Sources */,
 				C4BD086B19F32B38000F50BA /* EntryViewController.m in Sources */,
+				C47B8D251A81339000EC9A7A /* Util.m in Sources */,
 				C416FC6F1A22E8C200655AF6 /* Template.m in Sources */,
 				C4BD086319F32B38000F50BA /* AppDelegate.m in Sources */,
 			);
