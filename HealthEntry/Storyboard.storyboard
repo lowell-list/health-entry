@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="PsJ-uz-QhX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="PsJ-uz-QhX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -19,21 +19,41 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GtC-bj-gpN" id="P1H-q0-87d">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZE-wE-WKX">
-                                            <rect key="frame" x="24" y="14" width="194" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZE-wE-WKX">
+                                            <rect key="frame" x="24" y="7" width="194" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="28" id="6ok-xl-f8c"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="AUO-Cv-1i0">
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="AUO-Cv-1i0">
                                             <rect key="frame" x="5" y="11" width="18" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="18" id="Ap0-S7-CS4"/>
+                                                <constraint firstAttribute="height" constant="18" id="INX-1U-1Ll"/>
+                                            </constraints>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" tag="300" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mkc-QK-ImW" customClass="UnitSelectTextField">
-                                            <rect key="frame" x="226" y="9" width="86" height="30"/>
+                                        <textField opaque="NO" clipsSubviews="YES" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mkc-QK-ImW" customClass="UnitSelectTextField">
+                                            <rect key="frame" x="226" y="7" width="86" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="86" id="Hgl-DX-Sgs"/>
+                                                <constraint firstAttribute="height" constant="30" id="nCm-wU-zy3"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="ZZE-wE-WKX" secondAttribute="centerY" id="81D-Zk-W5K"/>
+                                        <constraint firstItem="Mkc-QK-ImW" firstAttribute="trailing" secondItem="P1H-q0-87d" secondAttribute="trailingMargin" id="8Xc-oA-iyJ"/>
+                                        <constraint firstItem="AUO-Cv-1i0" firstAttribute="leading" secondItem="P1H-q0-87d" secondAttribute="leadingMargin" constant="-3" id="Ctg-UA-uw0"/>
+                                        <constraint firstAttribute="centerY" secondItem="AUO-Cv-1i0" secondAttribute="centerY" constant="2" id="fxm-7V-rsV"/>
+                                        <constraint firstItem="ZZE-wE-WKX" firstAttribute="leading" secondItem="AUO-Cv-1i0" secondAttribute="trailing" constant="1" id="gzV-qb-jWt"/>
+                                        <constraint firstAttribute="centerY" secondItem="Mkc-QK-ImW" secondAttribute="centerY" id="qRt-0m-nKq"/>
+                                        <constraint firstItem="Mkc-QK-ImW" firstAttribute="leading" secondItem="ZZE-wE-WKX" secondAttribute="trailing" constant="8" id="zm5-vh-eip"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -47,7 +67,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mlW-k8-Cez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-414" y="1452"/>
+            <point key="canvasLocation" x="-414" y="1451"/>
         </scene>
         <!--Entry-->
         <scene sceneID="Zbg-6A-lkT">

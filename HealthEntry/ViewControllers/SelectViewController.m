@@ -21,6 +21,7 @@
   UIPickerView *            mPicker;
   UnitSelectTextField *     mSelectedTextField;
   SimpleHealthEntryItem *   mSelectedItem;
+  UIGestureRecognizer *     mTapGestureRecognizer;
 }
 /// An array of all supported items.
 @property (nonatomic) NSArray * supportedItems;
@@ -80,7 +81,6 @@
     
     // setup unit text field
     unttxtfld.text = [smpitm.selectedDataUnit unitString];
-    /**/NSLog(@"setting up text field for %@, set value to %@",smpitm.label, unttxtfld.text);
     unttxtfld.enabled = (smpitm.dataUnits.count > 1);
     if(unttxtfld.enabled) {
       unttxtfld.inputView = unttxtfld.enabled ? mPicker : nil;        // the picker view will display when this text field is edited
@@ -156,6 +156,24 @@
 }
 
 /**************************************************************************/
+#pragma mark INSTANCE METHODS - User Interaction
+/**************************************************************************/
+
+/**
+ * Any tap gesture on the view will dismiss the picker (if visible)
+ */
+- (void)handleTapGesture:(UIGestureRecognizer *)gestureRecognizer
+{
+  [self stopEditing];
+  
+  // remove tap gesture recognizer
+  if(mTapGestureRecognizer) {
+    [self.view removeGestureRecognizer:mTapGestureRecognizer];
+    mTapGestureRecognizer = nil;
+  }
+}
+
+/**************************************************************************/
 #pragma mark INSTANCE METHODS - UITextFieldDelegate
 /**************************************************************************/
 
@@ -170,6 +188,11 @@
   // reload picker view, set selected row
   [mPicker reloadAllComponents];
   [mPicker selectRow:mSelectedItem.selectedDataUnitIndex inComponent:0 animated:NO];
+  
+  // add tap gesture recognizer to auto dismiss picker by tapping somewhere else
+  if(mTapGestureRecognizer) { [self.view removeGestureRecognizer:mTapGestureRecognizer]; }
+  mTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+  [self.view addGestureRecognizer:mTapGestureRecognizer];
 
   return YES; // YES to allow editing, NO to disallow
 }
@@ -217,9 +240,15 @@
     mSelectedItem.selectedDataUnitIndex = row;
     mSelectedTextField.text = mSelectedItem.selectedDataUnit.unitString;
   }
+  [self stopEditing];
+}
+
+- (void)stopEditing
+{
+  // resign first responder (which hides the picker)
+  if(mSelectedTextField) { [mSelectedTextField resignFirstResponder]; }
   
-  // dismiss picker view
-  [mSelectedTextField resignFirstResponder];
+  // remove references to selected item / text field
   mSelectedTextField = nil;
   mSelectedItem = nil;
 }
