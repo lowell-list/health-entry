@@ -165,12 +165,6 @@
 - (void)handleTapGesture:(UIGestureRecognizer *)gestureRecognizer
 {
   [self stopEditing];
-  
-  // remove tap gesture recognizer
-  if(mTapGestureRecognizer) {
-    [self.view removeGestureRecognizer:mTapGestureRecognizer];
-    mTapGestureRecognizer = nil;
-  }
 }
 
 /**************************************************************************/
@@ -251,6 +245,12 @@
   // remove references to selected item / text field
   mSelectedTextField = nil;
   mSelectedItem = nil;
+  
+  // remove tap gesture recognizer
+  if(mTapGestureRecognizer) {
+    [self.view removeGestureRecognizer:mTapGestureRecognizer];
+    mTapGestureRecognizer = nil;
+  }
 }
 
 /**************************************************************************/
