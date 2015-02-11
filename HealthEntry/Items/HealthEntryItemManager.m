@@ -169,6 +169,9 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
  */
 - (void)initSelectedItems
 {
+  // upgrade as necessary
+  [self upgradeStoredSelectedItems];
+  
   // load selected items from storage
   _selectedItems = [self loadSelectedItems];
   
@@ -243,6 +246,7 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
   
   // build array of selected items and return
   if(itmidsarr) {
+    // TODO: use fast enumeration here!
     for(NSUInteger xa=0; xa<itmidsarr.count; xa++)
     {
       NSString *itmidfstr = (NSString *)[itmidsarr objectAtIndex:xa];                         // item identifier string
@@ -275,6 +279,46 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
   NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
   [usrdft setObject:itmidsarr forKey:kSelectedHealthEntryItems];
   [usrdft synchronize];
+}
+
+/**
+ * Upgrades stored selected item data to the latest version.
+ */
+- (void)upgradeStoredSelectedItems
+{
+  NSString * const kVersionKey = @"version";
+  
+  // load current object version
+  NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
+  id selitmobj = [usrdft objectForKey:kSelectedHealthEntryItems];
+  
+  // if object is nil, it has never been set before, so no upgrade needed
+  if(!selitmobj) { return; }
+  
+  // v0 -> v1: upgrade NSArray to NSDictionary and add version property
+  if([selitmobj isKindOfClass:[NSArray class]])
+  {
+    NSLog(@"performing v0 -> v1 upgrade for %@...",kSelectedHealthEntryItems);
+    
+    // get array reference
+    NSArray *itmidsarr = selitmobj;
+    
+    // create empty new dictionary with version key
+    NSMutableDictionary *itmidsdct = [[NSMutableDictionary alloc] initWithCapacity:itmidsarr.count+1];
+    [itmidsdct setObject:[NSNumber numberWithInt:1] forKey:kVersionKey];
+    
+    // populate dictionary from array
+    for(NSString *itmidfstr in itmidsarr) { [itmidsdct setObject:[NSDictionary dictionary] forKey:itmidfstr]; }
+    
+    // update current object pointer
+    selitmobj = itmidsdct;
+    NSLog(@"done!");
+  }
+  
+  // save upgraded version of selitmobj in user defaults
+  /**/NSLog(@"%@",selitmobj);
+//  [usrdft setObject:selitmobj forKey:kSelectedHealthEntryItems];
+//  [usrdft synchronize];
 }
 
 /**************************************************************************/
