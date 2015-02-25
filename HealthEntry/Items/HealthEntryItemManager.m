@@ -17,6 +17,11 @@
 // NSUserDefaults keys
 static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
 
+// selected items data
+static NSString * const kSelectedHealthEntryItemsVersionKey     = @"version";
+static NSInteger  const kSelectedHealthEntryItemsDataVersion    = 1;              // the data version expected by the app
+static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
+
 /**************************************************************************/
 #pragma mark INSTANCE PROPERTIES
 /**************************************************************************/
@@ -240,24 +245,47 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
   // create selected items array
   NSMutableArray *selitmarr = [[NSMutableArray alloc] init];
 
-  // load array of selected item identifier strings (may be nil)
+  // load dictionary of selected items (may be nil)
+  // see the upgradeStoredSelectedItems method for details about dictionary contents
   NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
-  NSArray *itmidsarr = [usrdft objectForKey:kSelectedHealthEntryItems];
+  NSDictionary *itmidsdct = [usrdft objectForKey:kSelectedHealthEntryItems];
   
-  // build array of selected items and return
-  if(itmidsarr) {
-    // TODO: use fast enumeration here!
-    for(NSUInteger xa=0; xa<itmidsarr.count; xa++)
+  // no dictionary set means nothing selected!
+  if(!itmidsdct) { return selitmarr; }
+    
+  // do not continue if data version is unexpected
+  NSNumber *dtaver = [itmidsdct objectForKey:kSelectedHealthEntryItemsVersionKey];
+  if(dtaver.integerValue!=kSelectedHealthEntryItemsDataVersion) { return selitmarr; }
+
+  // iterate through dictionary
+  for(NSString* key in itmidsdct)
+  {
+    // ignore the version key
+    if([key isEqualToString:kSelectedHealthEntryItemsVersionKey]) { continue; }
+
+    // key is now item identifier string, value is dictionary of key/value pairs for this selected item
+    NSDictionary *val = [itmidsdct objectForKey:key];
+    
+    // key is present, so select item;
+    // find corresponding item in supported items array
+    for(HealthEntryItem *itm in _supportedItems)
     {
-      NSString *itmidfstr = (NSString *)[itmidsarr objectAtIndex:xa];                         // item identifier string
-      for(NSUInteger xb=0; xb<_supportedItems.count; xb++)                                    // find corresponding item
-      {
-        HealthEntryItem *itm = ((HealthEntryItem *)[_supportedItems objectAtIndex:xb]);
-        if([itmidfstr isEqualToString:itm.uniqueIdentifier]) {
-          [selitmarr addObject:itm];                                                          // add it to the selected items array
-          break;
+      // ignore non-matches
+      if(![key isEqualToString:itm.uniqueIdentifier]) { continue; }
+      
+      // a match was found! add it to the selected items array
+      [selitmarr addObject:itm];
+      
+      // if item is SimpleHealthEntryItem, check if selected unit was also saved
+      if([itm isMemberOfClass:[SimpleHealthEntryItem class]]) {
+        NSNumber *untidx = [val objectForKey:kSelectedHealthEntryItemsUnitIndexKey];
+        if(untidx) {
+          ((SimpleHealthEntryItem *)itm).selectedDataUnitIndex = untidx.integerValue;
+          /**/NSLog(@"applied selected unit index [%i] to item [%@]",untidx.integerValue,itm.label);
         }
       }
+      
+      break; // stop loop now that match was found
     }
   }
   return selitmarr;
@@ -283,17 +311,18 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
 
 /**
  * Upgrades stored selected item data to the latest version.
+ * If no stored data is found, then nothing happens.
  */
 - (void)upgradeStoredSelectedItems
 {
-  NSString * const kVersionKey = @"version";
-  
   // load current object version
   NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
   id selitmobj = [usrdft objectForKey:kSelectedHealthEntryItems];
   
   // if object is nil, it has never been set before, so no upgrade needed
   if(!selitmobj) { return; }
+  
+  // start upgrade process: each step upgrades selitmobj to the next version
   
   // v0 -> v1: upgrade NSArray to NSDictionary and add version property
   if([selitmobj isKindOfClass:[NSArray class]])
@@ -305,7 +334,7 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
     
     // create empty new dictionary with version key
     NSMutableDictionary *itmidsdct = [[NSMutableDictionary alloc] initWithCapacity:itmidsarr.count+1];
-    [itmidsdct setObject:[NSNumber numberWithInt:1] forKey:kVersionKey];
+    [itmidsdct setObject:[NSNumber numberWithInt:1] forKey:kSelectedHealthEntryItemsVersionKey];
     
     // populate dictionary from array
     for(NSString *itmidfstr in itmidsarr) { [itmidsdct setObject:[NSDictionary dictionary] forKey:itmidfstr]; }
@@ -315,10 +344,15 @@ static NSString * const kSelectedHealthEntryItems = @"SelectedHealthEntryItems";
     NSLog(@"done!");
   }
   
+  // output final version number of selected items
+  NSNumber *dtaver = [(NSDictionary *)selitmobj objectForKey:kSelectedHealthEntryItemsVersionKey];
+  NSLog(@"selected items data version is (%@)",dtaver);
+  /**/NSLog(@"selected items data: %@",selitmobj);
+  assert(dtaver.integerValue==kSelectedHealthEntryItemsDataVersion); // after all upgrades, version of data must match version expected by app
+  
   // save upgraded version of selitmobj in user defaults
-  /**/NSLog(@"%@",selitmobj);
-//  [usrdft setObject:selitmobj forKey:kSelectedHealthEntryItems];
-//  [usrdft synchronize];
+  [usrdft setObject:selitmobj forKey:kSelectedHealthEntryItems];
+  [usrdft synchronize];
 }
 
 /**************************************************************************/
