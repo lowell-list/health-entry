@@ -236,17 +236,48 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
   return [_selectedItems filteredArrayUsingPredicate:prd];
 }
 
+- (void)saveSelectedItems
+{
+  // create empty new dictionary with current data version key
+  NSMutableDictionary *itmidsdct = [[NSMutableDictionary alloc] initWithCapacity:_selectedItems.count+1];
+  [itmidsdct setObject:[NSNumber numberWithInt:kSelectedHealthEntryItemsDataVersion] forKey:kSelectedHealthEntryItemsVersionKey];
+  
+  // populate new dictionary from array
+  for(HealthEntryItem *itm in _selectedItems)
+  {
+    // create empty item options dictionary
+    NSMutableDictionary *itmopt = [NSMutableDictionary dictionary];
+    
+    // add selected unit index to item options if necessary
+    if([itm isMemberOfClass:[SimpleHealthEntryItem class]]) {
+      NSInteger untidx = ((SimpleHealthEntryItem *)itm).selectedDataUnitIndex;
+      NSNumber *untidxnbr = [NSNumber numberWithInteger:untidx];
+      [itmopt setObject:untidxnbr forKey:kSelectedHealthEntryItemsUnitIndexKey];
+      /**/NSLog(@"saved selected unit index [%@] with item [%@]",untidxnbr,itm.label);
+    }
+    
+    // add entry for selected item
+    [itmidsdct setObject:itmopt forKey:itm.uniqueIdentifier];
+  }
+  
+  // save to user defaults
+  /**/NSLog(@"selected items data: %@",itmidsdct);
+  NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
+  [usrdft setObject:itmidsdct forKey:kSelectedHealthEntryItems];
+  [usrdft synchronize];
+}
+
 /**
  * Loads previously saved item selections.
  * @return A new selected items array; empty if there were no previously saved item selections.
  */
 - (NSMutableArray *)loadSelectedItems
 {
-  // create selected items array
+  // create empty selected items array
   NSMutableArray *selitmarr = [[NSMutableArray alloc] init];
 
   // load dictionary of selected items (may be nil)
-  // see the upgradeStoredSelectedItems method for details about dictionary contents
+  // see the upgradeStoredSelectedItems method for details about expected dictionary contents
   NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
   NSDictionary *itmidsdct = [usrdft objectForKey:kSelectedHealthEntryItems];
   
@@ -266,7 +297,7 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
     // key is now item identifier string, value is dictionary of key/value pairs for this selected item
     NSDictionary *val = [itmidsdct objectForKey:key];
     
-    // key is present, so select item;
+    // key is present, so select item by adding it to the selected items array;
     // find corresponding item in supported items array
     for(HealthEntryItem *itm in _supportedItems)
     {
@@ -281,7 +312,7 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
         NSNumber *untidx = [val objectForKey:kSelectedHealthEntryItemsUnitIndexKey];
         if(untidx) {
           ((SimpleHealthEntryItem *)itm).selectedDataUnitIndex = untidx.integerValue;
-          /**/NSLog(@"applied selected unit index [%i] to item [%@]",untidx.integerValue,itm.label);
+          /**/NSLog(@"applied selected unit index [%@] to item [%@]",untidx,itm.label);
         }
       }
       
@@ -289,24 +320,6 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
     }
   }
   return selitmarr;
-}
-
-/**
- * Saves all current item selections.
- */
-- (void)saveSelectedItems
-{
-  // create array of selected item identifier strings
-  NSMutableArray *itmidsarr = [[NSMutableArray alloc] init];
-  for(NSUInteger xa=0; xa<_selectedItems.count; xa++) {
-    HealthEntryItem *itm = ((HealthEntryItem *)[_selectedItems objectAtIndex:xa]);
-    [itmidsarr addObject:itm.uniqueIdentifier];
-  }
-  
-  // save to user defaults
-  NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
-  [usrdft setObject:itmidsarr forKey:kSelectedHealthEntryItems];
-  [usrdft synchronize];
 }
 
 /**

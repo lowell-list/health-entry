@@ -233,6 +233,7 @@
   if(mSelectedItem && mSelectedTextField) {
     mSelectedItem.selectedDataUnitIndex = row;
     mSelectedTextField.text = mSelectedItem.selectedDataUnit.unitString;
+    [[HealthEntryItemManager instance] saveSelectedItems];
   }
   [self stopEditing];
 }

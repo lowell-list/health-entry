@@ -50,6 +50,11 @@
  */
 - (NSArray *)getSelectedItemsWithValidInput;
 
+/**
+ * Saves all current item selections to User Preferences.
+ */
+- (void)saveSelectedItems;
+
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/
