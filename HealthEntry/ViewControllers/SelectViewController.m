@@ -80,7 +80,7 @@
     SimpleHealthEntryItem *smpitm = (SimpleHealthEntryItem *)itm;
     
     // setup unit text field
-    unttxtfld.text = [smpitm.selectedDataUnit unitString];
+    unttxtfld.text = [[HealthEntryItemManager instance] unitDisplayString:smpitm.selectedDataUnit];
     unttxtfld.enabled = (smpitm.dataUnits.count > 1);
     if(unttxtfld.enabled) {
       unttxtfld.inputView = unttxtfld.enabled ? mPicker : nil;        // the picker view will display when this text field is edited
@@ -224,7 +224,7 @@
 {
   if(!mSelectedItem) { return @""; }
   HKUnit *unt = [mSelectedItem.dataUnits objectAtIndex:row];
-  return unt.unitString;
+  return [[HealthEntryItemManager instance] unitDisplayString:unt];
 }
 
 // called when the user selects a row of the picker view
@@ -232,7 +232,7 @@
 {
   if(mSelectedItem && mSelectedTextField) {
     mSelectedItem.selectedDataUnitIndex = row;
-    mSelectedTextField.text = mSelectedItem.selectedDataUnit.unitString;
+    mSelectedTextField.text = [[HealthEntryItemManager instance] unitDisplayString:mSelectedItem.selectedDataUnit];
     [[HealthEntryItemManager instance] saveSelectedItems];
   }
   [self stopEditing];

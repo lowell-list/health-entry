@@ -7,6 +7,7 @@
 //
 
 #import "SimpleHealthEntryItem.h"
+#import "HealthEntryItemManager.h"
 #import "Util.h"
 
 @interface SimpleHealthEntryItem()
@@ -79,7 +80,7 @@
 {
   // set primary label text
   UILabel *lbl = (UILabel *)[cell viewWithTag:100];
-  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[self.selectedDataUnit unitString]]];
+  [lbl setText:[NSString stringWithFormat:@"%@ (%@)",_label,[[HealthEntryItemManager instance] unitDisplayString:self.selectedDataUnit]]];
   
   // set textfield text
   UITextField *txtfld = (UITextField *)[cell viewWithTag:200];

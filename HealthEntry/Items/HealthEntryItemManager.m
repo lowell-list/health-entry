@@ -27,7 +27,11 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
 /**************************************************************************/
 
 @interface HealthEntryItemManager()
-
+{
+@private
+  // unit display strings
+  NSDictionary *      mUnitDisplayStrings;
+}
 @end
 
 /**************************************************************************/
@@ -40,6 +44,7 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
 {
   if(self=[super init]) {
     // init
+    [self initUnitDisplayStrings];
     [self initSupportedItems];
     [self initSelectedItems];
   }
@@ -163,6 +168,35 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
       ],
 
      nil];
+}
+
+/**************************************************************************/
+#pragma mark INSTANCE METHODS - UNIT DISPLAY STRINGS
+/**************************************************************************/
+
+- (void)initUnitDisplayStrings
+{
+  mUnitDisplayStrings = [NSDictionary dictionaryWithObjectsAndKeys:
+                         // val     key
+                         @"°K",     @"K",
+                         @"°C",     @"degC",
+                         @"°F",     @"degF",
+                         @"mmol/L", @"mmol<180.1558800000541>/L",
+                         nil
+                         ];
+}
+
+- (NSString *)unitDisplayString:(HKUnit *)unit
+{
+  // get unit string
+  NSString * untstr = unit.unitString;
+  
+  // lookup unit display string and use it if it exists
+  NSString * dspstr = [mUnitDisplayStrings objectForKey:untstr];
+  if(dspstr!=nil) { return dspstr; }
+  
+  // just use the unit string for display if a display string was not found
+  return untstr;
 }
 
 /**************************************************************************/

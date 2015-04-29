@@ -55,6 +55,11 @@
  */
 - (void)saveSelectedItems;
 
+/**
+ * @return a display string for the given unit.
+ */
+- (NSString *)unitDisplayString:(HKUnit *)unit;
+
 /**************************************************************************/
 #pragma mark CLASS METHODS
 /**************************************************************************/
