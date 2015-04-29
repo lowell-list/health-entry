@@ -287,7 +287,6 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
       NSInteger untidx = ((SimpleHealthEntryItem *)itm).selectedDataUnitIndex;
       NSNumber *untidxnbr = [NSNumber numberWithInteger:untidx];
       [itmopt setObject:untidxnbr forKey:kSelectedHealthEntryItemsUnitIndexKey];
-      /**/NSLog(@"saved selected unit index [%@] with item [%@]",untidxnbr,itm.label);
     }
     
     // add entry for selected item
@@ -295,7 +294,6 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
   }
   
   // save to user defaults
-  /**/NSLog(@"selected items data: %@",itmidsdct);
   NSUserDefaults *usrdft = [NSUserDefaults standardUserDefaults];
   [usrdft setObject:itmidsdct forKey:kSelectedHealthEntryItems];
   [usrdft synchronize];
@@ -346,7 +344,6 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
         NSNumber *untidx = [val objectForKey:kSelectedHealthEntryItemsUnitIndexKey];
         if(untidx) {
           ((SimpleHealthEntryItem *)itm).selectedDataUnitIndex = untidx.integerValue;
-          /**/NSLog(@"applied selected unit index [%@] to item [%@]",untidx,itm.label);
         }
       }
       
@@ -394,7 +391,6 @@ static NSString * const kSelectedHealthEntryItemsUnitIndexKey   = @"unitIndex";
   // output final version number of selected items
   NSNumber *dtaver = [(NSDictionary *)selitmobj objectForKey:kSelectedHealthEntryItemsVersionKey];
   NSLog(@"selected items data version is (%@)",dtaver);
-  /**/NSLog(@"selected items data: %@",selitmobj);
   assert(dtaver.integerValue==kSelectedHealthEntryItemsDataVersion); // after all upgrades, version of data must match version expected by app
   
   // save upgraded version of selitmobj in user defaults
