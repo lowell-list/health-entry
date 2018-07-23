@@ -1,4 +1,4 @@
-# HealthEntry iPhone App
+# HealthEntry native iOS app
 
 for sale here: https://itunes.apple.com/us/app/healthentry-easy-data-entry-for-healthkit/id944851718?mt=8
 
